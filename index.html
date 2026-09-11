@@ -1,276 +1,159 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#111827">
-  <title>دورناه</title>
-  <link rel="manifest" href="./manifest.webmanifest">
-  <style>
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:#f6f7f9;color:#161616}
-    .wrap{max-width:760px;margin:auto;padding:16px 14px 90px}
-    .head{background:#111827;color:#fff;border-radius:24px;padding:20px;margin-bottom:14px}
-    .head h1{margin:0 0 6px;font-size:30px}
-    .sub{font-size:14px;line-height:1.8;opacity:.9}
-    .section-title{font-size:20px;font-weight:800;margin:18px 2px 10px}
-    .home-grid{display:grid;grid-template-columns:1fr;gap:12px}
-    .home-card{background:#fff;border:1px solid #e7e7ea;border-radius:20px;padding:18px;cursor:pointer}
-    .home-card h2{margin:0 0 5px;font-size:21px}
-    .home-card p{margin:0;color:#666;font-size:14px;line-height:1.7}
-    .icon{font-size:28px;margin-bottom:8px}
-    .topbar{display:flex;align-items:center;gap:9px;margin-bottom:12px}
-    .back{background:#eceef1;border:0;border-radius:11px;padding:9px 12px}
-    .box,.card{background:#fff;border:1px solid #e7e7ea;border-radius:18px;padding:14px;margin:10px 0}
-    input,select{width:100%;padding:13px;border:1px solid #d7d8dc;border-radius:12px;background:white;font-size:16px;margin-top:8px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-    .name{font-size:19px;font-weight:800;margin-bottom:5px}
-    .badge{display:inline-block;background:#eef0f3;border-radius:999px;padding:5px 9px;font-size:12px;margin:3px 0 8px}
-    .meta{font-size:14px;color:#555;line-height:1.8}
-    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    button{border:0;border-radius:11px;padding:10px 13px;font-size:14px;cursor:pointer}
-    .primary{background:#111827;color:#fff}
-    .light{background:#eef0f3}
-    .notice{font-size:13px;background:#fff7d6;border:1px solid #eddc90;color:#6b5200;padding:10px;border-radius:12px;margin:10px 0}
-    .metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
-    .metric{background:#f5f6f8;border-radius:14px;padding:12px}
-    .metric b{display:block;font-size:20px;margin-top:4px}
-    .metric span{font-size:12px;color:#666}
-    .research-block{border-top:1px solid #ececef;padding-top:12px;margin-top:12px}
-    .research-block h3{font-size:16px;margin:0 0 8px}
-    .source{font-size:13px;word-break:break-word}
-    .count{font-size:13px;color:#666;margin-top:10px}
-    .empty{text-align:center;color:#666;padding:26px}
-    .footer{text-align:center;color:#777;font-size:12px;margin-top:28px;line-height:1.8}
-    dialog{border:0;border-radius:20px;width:min(94vw,650px);padding:0}
-    dialog::backdrop{background:rgba(0,0,0,.55)}
-    .modal{padding:18px}
-    .close{float:left;background:#eef0f3}
-    .hidden{display:none!important}
-    @media(max-width:520px){.grid,.metric-grid{grid-template-columns:1fr}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>دورناه</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:#f6f7f9;color:#161616}
+.wrap{max-width:760px;margin:auto;padding:16px 14px 90px}
+.head{background:#111827;color:#fff;border-radius:24px;padding:20px;margin-bottom:14px}
+.head h1{margin:0 0 6px;font-size:30px}
+.sub{font-size:14px;line-height:1.8;opacity:.9}
+.section-title{font-size:20px;font-weight:800;margin:18px 2px 10px}
+.home-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.home-card{background:#fff;border:1px solid #e7e7ea;border-radius:20px;padding:18px;cursor:pointer}
+.home-card h2{margin:0 0 5px;font-size:21px}
+.home-card p{margin:0;color:#666;font-size:14px;line-height:1.7}
+.icon{font-size:28px;margin-bottom:8px}
+.topbar{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.back{background:#eceef1;border:0;border-radius:11px;padding:9px 12px}
+.box,.card{background:#fff;border:1px solid #e7e7ea;border-radius:18px;padding:14px;margin:10px 0}
+input,select{width:100%;padding:13px;border:1px solid #d7d8dc;border-radius:12px;background:white;font-size:16px;margin-top:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.name{font-size:19px;font-weight:800;margin-bottom:5px}
+.badge{display:inline-block;background:#eef0f3;border-radius:999px;padding:5px 9px;font-size:12px;margin:3px 0 8px}
+.meta{font-size:14px;color:#555;line-height:1.8}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+button{border:0;border-radius:11px;padding:10px 13px;font-size:14px;cursor:pointer}
+.primary{background:#111827;color:#fff}
+.notice{font-size:13px;background:#fff7d6;border:1px solid #eddc90;color:#6b5200;padding:10px;border-radius:12px;margin:10px 0}
+.count{font-size:13px;color:#666;margin-top:10px}
+.empty{text-align:center;color:#666;padding:26px}
+.footer{text-align:center;color:#777;font-size:12px;margin-top:28px;line-height:1.8}
+.hidden{display:none!important}
+dialog{border:0;border-radius:22px;width:min(96vw,680px);padding:0;max-height:92vh}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+.modal{padding:18px;overflow:auto;max-height:92vh}
+.close{float:left;background:#eef0f3}
+.doctor-title{font-size:24px;font-weight:900;margin:8px 0 4px}
+.doctor-sub{color:#666;font-size:14px;margin-bottom:14px}
+.section{background:#fff;border:1px solid #e8e8eb;border-radius:16px;padding:14px;margin:10px 0}
+.section h3{margin:0 0 9px;font-size:16px}
+.section p{margin:0;color:#4f4f4f;line-height:1.9;font-size:14px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.metric{background:#f4f5f7;border-radius:14px;padding:12px}
+.metric .label{font-size:12px;color:#686868}
+.metric .value{font-size:21px;font-weight:900;margin-top:5px}
+.bullet{padding:7px 0;border-bottom:1px solid #efeff1;font-size:14px;line-height:1.7}
+.bullet:last-child{border-bottom:0}
+.source{padding:7px 0;border-bottom:1px solid #efeff1;font-size:13px}
+.source:last-child{border-bottom:0}
+.compare-btn{width:100%;padding:13px;margin-top:12px;font-weight:700}
+.small-note{font-size:12px;color:#777;line-height:1.7;margin-top:8px}
+@media(max-width:520px){.grid,.metrics{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="wrap">
-  <div class="head">
-    <h1>دورناه</h1>
-    <div class="sub">نبحث بدل الناس، نجمع المعلومات المشتتة، ونختصرها حتى تساعدك على اتخاذ قرار أفضل.</div>
-  </div>
+<div class="head"><h1>دورناه</h1><div class="sub">نبحث بدل الناس، نجمع المعلومات المشتتة، ونختصرها حتى تساعدك على اتخاذ قرار أفضل.</div></div>
 
-  <section id="homeView">
-    <div class="section-title">شنو تريد تبحث؟</div>
-    <div class="home-grid">
-      <div class="home-card" onclick="openSection('doctors')">
-        <div class="icon">👨‍⚕️</div>
-        <h2>الأطباء</h2>
-        <p>نتائج بحث، حضور، أرقام، ملاحظات، مقارنة ومصادر.</p>
-      </div>
+<section id="homeView">
+<div class="section-title">شنو تريد تبحث؟</div>
+<div class="home-grid">
+<div class="home-card" onclick="openSection('doctors')"><div class="icon">👨‍⚕️</div><h2>الأطباء</h2><p>نتائج البحث، المقارنة، الأرقام والمصادر.</p></div>
+<div class="home-card" onclick="openSection('labs')"><div class="icon">🧪</div><h2>المختبرات</h2><p>الأسعار، الفحوصات، المعلومات والمقارنات.</p></div>
+<div class="home-card" onclick="openSection('devices')"><div class="icon">🩺</div><h2>الأجهزة</h2><p>الموديلات، الأسعار، المميزات ونتائج البحث.</p></div>
+</div>
+</section>
 
-      <div class="home-card" onclick="openSection('labs')">
-        <div class="icon">🧪</div>
-        <h2>المختبرات</h2>
-        <p>أسعار، فحوصات، معلومات، وثائق منشورة ومقارنات.</p>
-      </div>
+<section id="doctorsView" class="hidden">
+<div class="topbar"><button class="back" onclick="goHome()">رجوع</button><strong>الأطباء</strong></div>
+<div class="notice">البيانات الحالية تجريبية فقط لاختبار قالب صفحة الطبيب.</div>
+<div class="box">
+<input id="search" placeholder="ابحث باسم الطبيب أو الاختصاص">
+<div class="grid"><select id="gov"><option value="">كل المحافظات</option></select><select id="spec"><option value="">كل الاختصاصات</option></select></div>
+<div class="count" id="count"></div>
+</div>
+<div id="doctorResults"></div>
+</section>
 
-      <div class="home-card" onclick="openSection('devices')">
-        <div class="icon">🩺</div>
-        <h2>الأجهزة</h2>
-        <p>مقارنة موديلات، أسعار، انتشار، ملاحظات ونتائج البحث.</p>
-      </div>
-    </div>
-  </section>
+<section id="labsView" class="hidden"><div class="topbar"><button class="back" onclick="goHome()">رجوع</button><strong>المختبرات</strong></div><div class="box"><div class="name">قسم المختبرات لاحقًا</div></div></section>
+<section id="devicesView" class="hidden"><div class="topbar"><button class="back" onclick="goHome()">رجوع</button><strong>الأجهزة</strong></div><div class="box"><div class="name">قسم الأجهزة لاحقًا</div></div></section>
 
-  <section id="doctorsView" class="hidden">
-    <div class="topbar">
-      <button class="back" onclick="goHome()">رجوع</button>
-      <strong>الأطباء</strong>
-    </div>
-
-    <div class="notice">الأسماء والأرقام الحالية تجريبية فقط حتى نبني الشكل النهائي.</div>
-
-    <div class="box">
-      <input id="search" placeholder="ابحث باسم الطبيب أو الاختصاص">
-      <div class="grid">
-        <select id="gov"><option value="">كل المحافظات</option></select>
-        <select id="spec"><option value="">كل الاختصاصات</option></select>
-      </div>
-      <div class="count" id="count"></div>
-    </div>
-
-    <div id="doctorResults"></div>
-  </section>
-
-  <section id="labsView" class="hidden">
-    <div class="topbar">
-      <button class="back" onclick="goHome()">رجوع</button>
-      <strong>المختبرات</strong>
-    </div>
-    <div class="box">
-      <div class="name">قسم المختبرات جاهز للبناء</div>
-      <div class="meta">لاحقًا نضيف الأسعار، الفحوصات، الوثائق المنشورة، سرعة النتائج والمقارنات.</div>
-    </div>
-  </section>
-
-  <section id="devicesView" class="hidden">
-    <div class="topbar">
-      <button class="back" onclick="goHome()">رجوع</button>
-      <strong>الأجهزة</strong>
-    </div>
-    <div class="box">
-      <div class="name">قسم الأجهزة جاهز للبناء</div>
-      <div class="meta">لاحقًا نضيف الموديلات، الأسعار، الانتشار، التحقق، المميزات والعيوب.</div>
-    </div>
-  </section>
-
-  <div class="footer">دورناه — نسخة تجريبية لبناء نظام البحث والمقارنة.</div>
+<div class="footer">دورناه — نسخة تجريبية.</div>
 </div>
 
-<dialog id="details">
-  <div class="modal">
-    <button class="close" onclick="details.close()">إغلاق</button>
-    <div id="detailContent"></div>
-  </div>
-</dialog>
+<dialog id="details"><div class="modal"><button class="close" onclick="details.close()">إغلاق</button><div id="detailContent"></div></div></dialog>
 
 <script src="./doctors.js"></script>
 <script src="./labs.js"></script>
 <script src="./devices.js"></script>
 <script>
-const views = {
-  home: document.getElementById("homeView"),
-  doctors: document.getElementById("doctorsView"),
-  labs: document.getElementById("labsView"),
-  devices: document.getElementById("devicesView")
-};
+const views={home:document.getElementById("homeView"),doctors:document.getElementById("doctorsView"),labs:document.getElementById("labsView"),devices:document.getElementById("devicesView")};
+function showView(name){Object.values(views).forEach(v=>v.classList.add("hidden"));views[name].classList.remove("hidden")}
+function openSection(name){showView(name)}
+function goHome(){showView("home")}
 
-function showView(name){
-  Object.values(views).forEach(v=>v.classList.add("hidden"));
-  views[name].classList.remove("hidden");
+const search=document.getElementById("search"),gov=document.getElementById("gov"),spec=document.getElementById("spec"),doctorResults=document.getElementById("doctorResults"),count=document.getElementById("count"),details=document.getElementById("details"),detailContent=document.getElementById("detailContent");
+function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ar"))}
+unique(doctors.map(d=>d.gov)).forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;gov.appendChild(o)});
+unique(doctors.map(d=>d.spec)).forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;spec.appendChild(o)});
+
+function sec(title,content){return content?`<div class="section"><h3>${title}</h3>${content}</div>`:""}
+function paragraph(text){return text?`<p>${text}</p>`:""}
+function bullets(items){return items&&items.length?items.map(x=>`<div class="bullet">• ${x}</div>`).join(""):""}
+function sources(items){return items&&items.length?items.map((s,i)=>`<div class="source">${i+1}. <a href="${s.url}" target="_blank">${s.label}</a></div>`).join(""):""}
+function metricsHtml(d){
+ const arr=[];
+ if(d.sampleSize!=null) arr.push(["حجم العينة",d.sampleSize]);
+ if(d.mentions!=null) arr.push(["مرات الذكر",d.mentions]);
+ if(d.directRecommendations!=null) arr.push(["ترشيحات مباشرة",d.directRecommendations]);
+ if(d.followers!=null) arr.push(["المتابعون",d.followers]);
+ if(d.rankText) arr.push(["الترتيب داخل البحث",d.rankText]);
+ return arr.length?`<div class="metrics">${arr.map(([l,v])=>`<div class="metric"><div class="label">${l}</div><div class="value">${v}</div></div>`).join("")}</div>`:"";
 }
-function openSection(name){ showView(name); }
-function goHome(){ showView("home"); }
-
-const search = document.getElementById("search");
-const gov = document.getElementById("gov");
-const spec = document.getElementById("spec");
-const doctorResults = document.getElementById("doctorResults");
-const count = document.getElementById("count");
-const details = document.getElementById("details");
-const detailContent = document.getElementById("detailContent");
-
-function unique(arr){ return [...new Set(arr)].sort((a,b)=>a.localeCompare(b,"ar")); }
-
-unique(doctors.map(d=>d.gov)).forEach(v=>{
-  const o=document.createElement("option"); o.value=v; o.textContent=v; gov.appendChild(o);
-});
-unique(doctors.map(d=>d.spec)).forEach(v=>{
-  const o=document.createElement("option"); o.value=v; o.textContent=v; spec.appendChild(o);
-});
 
 function openDoc(id){
-  const d=doctors.find(x=>x.id===id);
-
-  const sources = d.sources && d.sources.length
-    ? d.sources.map((s,i)=>`<div class="source">${i+1}. <a href="${s.url}" target="_blank">${s.label}</a></div>`).join("")
-    : "لا توجد مصادر مضافة بعد.";
-
-  detailContent.innerHTML = `
-    <h2>${d.name}</h2>
-    <div class="badge">${d.spec} • ${d.gov}</div>
-
-    <div class="research-block">
-      <h3>خلاصة بحث دورناه</h3>
-      <div class="meta">${d.summary}</div>
-    </div>
-
-    <div class="metric-grid">
-      <div class="metric">
-        <span>مرات الذكر في العينة</span>
-        <b>${d.mentions}</b>
-      </div>
-      <div class="metric">
-        <span>الحضور الرقمي</span>
-        <b>${d.digitalScore}/10</b>
-      </div>
-      <div class="metric">
-        <span>الحضور الميداني التقديري</span>
-        <b>${d.fieldScore}/10</b>
-      </div>
-      <div class="metric">
-        <span>ترتيبه داخل البحث</span>
-        <b>${d.rankText}</b>
-      </div>
-    </div>
-
-    <div class="research-block">
-      <h3>شنو لقينا؟</h3>
-      <div class="meta">${d.findings}</div>
-    </div>
-
-    <div class="research-block">
-      <h3>ملاحظات المقارنة</h3>
-      <div class="meta">${d.comparisonNote}</div>
-    </div>
-
-    <div class="research-block">
-      <h3>معلومات العيادة</h3>
-      <div class="meta">
-        المنطقة: ${d.area || "غير مضاف"}<br>
-        العنوان: ${d.address || "غير مضاف"}<br>
-        الهاتف: ${d.phone || "غير مضاف"}
-      </div>
-    </div>
-
-    <div class="research-block">
-      <h3>المصادر</h3>
-      ${sources}
-    </div>
-
-    <div class="research-block">
-      <div class="meta">آخر تحديث: ${d.updated}</div>
-    </div>
-  `;
-  details.showModal();
+ const d=doctors.find(x=>x.id===id);
+ const clinic=[];
+ if(d.area)clinic.push(`المنطقة: ${d.area}`);
+ if(d.address)clinic.push(`العنوان: ${d.address}`);
+ if(d.phone)clinic.push(`الهاتف: ${d.phone}`);
+ if(d.price)clinic.push(`سعر الكشف: ${d.price}`);
+ if(d.hours)clinic.push(`الدوام: ${d.hours}`);
+ const m=metricsHtml(d);
+ detailContent.innerHTML=`
+ <div class="doctor-title">${d.name}</div>
+ <div class="doctor-sub">${[d.spec,d.gov].filter(Boolean).join(" • ")}</div>
+ ${sec("خلاصة دورناه",paragraph(d.summary))}
+ ${m?sec("أرقام البحث",m):""}
+ ${sec("شنو لقينا؟",bullets(d.findings))}
+ ${sec("ملاحظات المقارنة",bullets(d.comparisonNotes))}
+ ${sec("معلومات العيادة",clinic.length?`<p>${clinic.join("<br>")}</p>`:"")}
+ ${sec("المصادر",sources(d.sources))}
+ ${d.updated?sec("آخر تحديث",`<p>${d.updated}</p>`):""}
+ <button class="primary compare-btn" onclick="alert('ميزة المقارنة راح نضيفها بالمرحلة الجاية')">قارن مع طبيب آخر</button>
+ <div class="small-note">نتائج دورناه مبنية على المعلومات التي تم جمعها ضمن البحث، وليست حكمًا على الكفاءة الطبية.</div>`;
+ details.showModal();
 }
 
 function renderDoctors(){
-  const q=search.value.trim().toLowerCase();
-
-  const filtered=doctors.filter(d=>{
-    const hay=(d.name+" "+d.spec+" "+d.gov+" "+(d.area||"")).toLowerCase();
-    return (!q || hay.includes(q))
-      && (!gov.value || d.gov===gov.value)
-      && (!spec.value || d.spec===spec.value);
-  });
-
-  count.textContent=`عدد النتائج: ${filtered.length}`;
-
-  if(!filtered.length){
-    doctorResults.innerHTML='<div class="empty">لا توجد نتائج.</div>';
-    return;
-  }
-
-  doctorResults.innerHTML=filtered.map(d=>`
-    <div class="card">
-      <div class="name">${d.name}</div>
-      <div class="badge">${d.spec}</div>
-      <div class="meta">
-        ${d.gov} • ${d.area || "المنطقة غير مضافة"}<br>
-        ${d.shortResult}
-      </div>
-      <div class="actions">
-        <button class="primary" onclick="openDoc(${d.id})">شوف نتيجة البحث</button>
-      </div>
-    </div>
-  `).join("");
+ const q=search.value.trim().toLowerCase();
+ const filtered=doctors.filter(d=>{
+  const hay=(d.name+" "+(d.spec||"")+" "+(d.gov||"")+" "+(d.area||"")).toLowerCase();
+  return (!q||hay.includes(q))&&(!gov.value||d.gov===gov.value)&&(!spec.value||d.spec===spec.value)
+ });
+ count.textContent=`عدد النتائج: ${filtered.length}`;
+ if(!filtered.length){doctorResults.innerHTML='<div class="empty">لا توجد نتائج.</div>';return}
+ doctorResults.innerHTML=filtered.map(d=>`<div class="card"><div class="name">${d.name}</div><div class="badge">${d.spec||""}</div><div class="meta">${[d.gov,d.area].filter(Boolean).join(" • ")}<br>${d.shortResult||""}</div><div class="actions"><button class="primary" onclick="openDoc(${d.id})">شوف نتيجة البحث</button></div></div>`).join("");
 }
-
 [search,gov,spec].forEach(el=>el.addEventListener("input",renderDoctors));
 renderDoctors();
-
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));
-}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"))}
 </script>
 </body>
 </html>
