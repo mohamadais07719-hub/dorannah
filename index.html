@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <title>دورناه</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:#f7f7f8;color:#151515}
+    .wrap{max-width:720px;margin:auto;padding:18px 14px 80px}
+    .head{background:#111827;color:white;border-radius:22px;padding:20px;margin-bottom:14px}
+    h1{margin:0 0 6px;font-size:30px}
+    .sub{opacity:.88;font-size:14px;line-height:1.7}
+    .box{background:white;border:1px solid #e8e8ea;border-radius:18px;padding:14px;margin:12px 0}
+    input,select{width:100%;padding:13px;border:1px solid #d8d8dc;border-radius:13px;background:white;font-size:16px;margin-top:8px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .card{background:white;border:1px solid #e8e8ea;border-radius:18px;padding:15px;margin:10px 0}
+    .name{font-size:19px;font-weight:800;margin-bottom:5px}
+    .meta{font-size:14px;color:#555;line-height:1.8}
+    .badge{display:inline-block;background:#f0f1f3;border-radius:999px;padding:5px 9px;font-size:12px;margin:3px 0 7px}
+    .actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    button{border:0;border-radius:12px;padding:10px 13px;font-size:14px;cursor:pointer}
+    .primary{background:#111827;color:white}
+    .light{background:#efeff1;color:#111}
+    .fav.on{background:#fff2bf}
+    .empty{text-align:center;color:#666;padding:28px}
+    .footer{text-align:center;color:#777;font-size:12px;margin-top:30px;line-height:1.8}
+    .notice{font-size:13px;color:#6b4f00;background:#fff7d6;border:1px solid #f0dc88;border-radius:13px;padding:10px;margin-top:12px}
+    dialog{border:0;border-radius:20px;width:min(92vw,620px);padding:0}
+    dialog::backdrop{background:rgba(0,0,0,.55)}
+    .modal{padding:18px}
+    .close{float:left;background:#efeff1}
+    @media(max-width:520px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>دورناه</h1>
+    <div class="sub">نبحث بدل الناس، نجمع المعلومات المشتتة، ونختصرها حتى تساعدك على اتخاذ قرار أفضل.</div>
+  </div>
+
+  <div class="notice">هذه نسخة تجريبية للتأكد من عمل التطبيق. الأطباء الموجودون هنا أسماء تجريبية وليست توصيات حقيقية.</div>
+
+  <div class="box">
+    <strong>ابحث</strong>
+    <input id="search" placeholder="اكتب اسم طبيب أو اختصاص">
+    <div class="grid">
+      <select id="gov">
+        <option value="">كل المحافظات</option>
+        <option>النجف</option>
+        <option>بغداد</option>
+      </select>
+      <select id="spec">
+        <option value="">كل الاختصاصات</option>
+        <option>أطفال</option>
+        <option>جلدية</option>
+        <option>قلب</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="results"></div>
+
+  <div class="footer">
+    معلومات هذا التطبيق للتعريف والمقارنة ولا تُعد تشخيصًا أو توصية طبية.<br>
+    نسخة تجريبية من دورناه.
+  </div>
+</div>
+
+<dialog id="details">
+  <div class="modal">
+    <button class="close" onclick="details.close()">إغلاق</button>
+    <div id="detailContent"></div>
+  </div>
+</dialog>
+
+<script>
+const doctors = [
+  {id:1,name:"طبيب تجريبي 1",gov:"النجف",spec:"أطفال",area:"مركز النجف",phone:"غير مضاف",updated:"11 أيلول 2026",note:"هذه بيانات تجريبية فقط."},
+  {id:2,name:"طبيب تجريبي 2",gov:"النجف",spec:"جلدية",area:"الكوفة",phone:"غير مضاف",updated:"11 أيلول 2026",note:"هذه بيانات تجريبية فقط."},
+  {id:3,name:"طبيب تجريبي 3",gov:"بغداد",spec:"قلب",area:"بغداد",phone:"غير مضاف",updated:"11 أيلول 2026",note:"هذه بيانات تجريبية فقط."}
+];
+
+const search = document.getElementById("search");
+const gov = document.getElementById("gov");
+const spec = document.getElementById("spec");
+const results = document.getElementById("results");
+const details = document.getElementById("details");
+const detailContent = document.getElementById("detailContent");
+
+function getFavs(){ return JSON.parse(localStorage.getItem("favs") || "[]"); }
+function setFavs(v){ localStorage.setItem("favs", JSON.stringify(v)); render(); }
+function toggleFav(id){
+  let favs=getFavs();
+  favs = favs.includes(id) ? favs.filter(x=>x!==id) : [...favs,id];
+  setFavs(favs);
+}
+function openDoc(id){
+  const d=doctors.find(x=>x.id===id);
+  detailContent.innerHTML = `
+    <h2>${d.name}</h2>
+    <div class="badge">${d.spec} • ${d.gov}</div>
+    <p><b>المنطقة:</b> ${d.area}</p>
+    <p><b>الهاتف:</b> ${d.phone}</p>
+    <p><b>ملاحظة دورناه:</b> ${d.note}</p>
+    <p><b>آخر تحديث:</b> ${d.updated}</p>
+    <p style="color:#666;font-size:13px">لاحقًا نضيف هنا المصادر، العنوان، أوقات الدوام ونتيجة البحث.</p>`;
+  details.showModal();
+}
+async function shareDoc(id){
+  const d=doctors.find(x=>x.id===id);
+  const text=`${d.name} - ${d.spec} - ${d.gov} | دورناه`;
+  if(navigator.share){ try{await navigator.share({title:"دورناه",text,url:location.href});}catch(e){} }
+  else { await navigator.clipboard.writeText(text+" "+location.href); alert("تم نسخ المعلومات"); }
+}
+function render(){
+  const q=search.value.trim().toLowerCase();
+  const favs=getFavs();
+  const filtered=doctors.filter(d=>{
+    const matchesQ=!q || (d.name+" "+d.spec+" "+d.gov+" "+d.area).toLowerCase().includes(q);
+    const matchesGov=!gov.value || d.gov===gov.value;
+    const matchesSpec=!spec.value || d.spec===spec.value;
+    return matchesQ && matchesGov && matchesSpec;
+  });
+  if(!filtered.length){ results.innerHTML='<div class="empty">لا توجد نتائج.</div>'; return; }
+  results.innerHTML=filtered.map(d=>`
+    <div class="card">
+      <div class="name">${d.name}</div>
+      <div class="badge">${d.spec}</div>
+      <div class="meta">المحافظة: ${d.gov}<br>المنطقة: ${d.area}<br>آخر تحديث: ${d.updated}</div>
+      <div class="actions">
+        <button class="primary" onclick="openDoc(${d.id})">عرض التفاصيل</button>
+        <button class="light fav ${favs.includes(d.id)?"on":""}" onclick="toggleFav(${d.id})">${favs.includes(d.id)?"★ محفوظ":"☆ حفظ"}</button>
+        <button class="light" onclick="shareDoc(${d.id})">مشاركة</button>
+      </div>
+    </div>`).join("");
+}
+[search,gov,spec].forEach(el=>el.addEventListener("input",render));
+render();
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));
+}
+</script>
+</body>
+</html>
