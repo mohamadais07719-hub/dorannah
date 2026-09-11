@@ -8,32 +8,46 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <style>
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:#f7f7f8;color:#151515}
-    .wrap{max-width:720px;margin:auto;padding:18px 14px 90px}
-    .head{background:#111827;color:white;border-radius:22px;padding:20px;margin-bottom:14px}
-    h1{margin:0 0 6px;font-size:30px}
-    .sub{opacity:.88;font-size:14px;line-height:1.7}
-    .box{background:white;border:1px solid #e8e8ea;border-radius:18px;padding:14px;margin:12px 0}
-    input,select{width:100%;padding:13px;border:1px solid #d8d8dc;border-radius:13px;background:white;font-size:16px;margin-top:8px}
+    body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:#f6f7f9;color:#161616}
+    .wrap{max-width:760px;margin:auto;padding:16px 14px 90px}
+    .head{background:#111827;color:#fff;border-radius:24px;padding:20px;margin-bottom:14px}
+    .head h1{margin:0 0 6px;font-size:30px}
+    .sub{font-size:14px;line-height:1.8;opacity:.9}
+    .section-title{font-size:20px;font-weight:800;margin:18px 2px 10px}
+    .home-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .home-card{background:#fff;border:1px solid #e7e7ea;border-radius:20px;padding:18px;cursor:pointer}
+    .home-card h2{margin:0 0 5px;font-size:21px}
+    .home-card p{margin:0;color:#666;font-size:14px;line-height:1.7}
+    .icon{font-size:28px;margin-bottom:8px}
+    .topbar{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+    .back{background:#eceef1;border:0;border-radius:11px;padding:9px 12px}
+    .box,.card{background:#fff;border:1px solid #e7e7ea;border-radius:18px;padding:14px;margin:10px 0}
+    input,select{width:100%;padding:13px;border:1px solid #d7d8dc;border-radius:12px;background:white;font-size:16px;margin-top:8px}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-    .card{background:white;border:1px solid #e8e8ea;border-radius:18px;padding:15px;margin:10px 0}
     .name{font-size:19px;font-weight:800;margin-bottom:5px}
+    .badge{display:inline-block;background:#eef0f3;border-radius:999px;padding:5px 9px;font-size:12px;margin:3px 0 8px}
     .meta{font-size:14px;color:#555;line-height:1.8}
-    .badge{display:inline-block;background:#f0f1f3;border-radius:999px;padding:5px 9px;font-size:12px;margin:3px 0 7px}
-    .actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-    button{border:0;border-radius:12px;padding:10px 13px;font-size:14px;cursor:pointer}
-    .primary{background:#111827;color:white}
-    .light{background:#efeff1;color:#111}
-    .fav.on{background:#fff2bf}
-    .empty{text-align:center;color:#666;padding:28px}
-    .footer{text-align:center;color:#777;font-size:12px;margin-top:30px;line-height:1.8}
-    .notice{font-size:13px;color:#6b4f00;background:#fff7d6;border:1px solid #f0dc88;border-radius:13px;padding:10px;margin-top:12px}
-    dialog{border:0;border-radius:20px;width:min(92vw,620px);padding:0}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    button{border:0;border-radius:11px;padding:10px 13px;font-size:14px;cursor:pointer}
+    .primary{background:#111827;color:#fff}
+    .light{background:#eef0f3}
+    .notice{font-size:13px;background:#fff7d6;border:1px solid #eddc90;color:#6b5200;padding:10px;border-radius:12px;margin:10px 0}
+    .metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+    .metric{background:#f5f6f8;border-radius:14px;padding:12px}
+    .metric b{display:block;font-size:20px;margin-top:4px}
+    .metric span{font-size:12px;color:#666}
+    .research-block{border-top:1px solid #ececef;padding-top:12px;margin-top:12px}
+    .research-block h3{font-size:16px;margin:0 0 8px}
+    .source{font-size:13px;word-break:break-word}
+    .count{font-size:13px;color:#666;margin-top:10px}
+    .empty{text-align:center;color:#666;padding:26px}
+    .footer{text-align:center;color:#777;font-size:12px;margin-top:28px;line-height:1.8}
+    dialog{border:0;border-radius:20px;width:min(94vw,650px);padding:0}
     dialog::backdrop{background:rgba(0,0,0,.55)}
     .modal{padding:18px}
-    .close{float:left;background:#efeff1}
-    .count{font-size:13px;color:#666;margin-top:10px}
-    @media(max-width:520px){.grid{grid-template-columns:1fr}}
+    .close{float:left;background:#eef0f3}
+    .hidden{display:none!important}
+    @media(max-width:520px){.grid,.metric-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -43,24 +57,72 @@
     <div class="sub">نبحث بدل الناس، نجمع المعلومات المشتتة، ونختصرها حتى تساعدك على اتخاذ قرار أفضل.</div>
   </div>
 
-  <div class="notice">هذه نسخة تجريبية. الأسماء الحالية للتجربة فقط، وليست توصيات حقيقية.</div>
+  <section id="homeView">
+    <div class="section-title">شنو تريد تبحث؟</div>
+    <div class="home-grid">
+      <div class="home-card" onclick="openSection('doctors')">
+        <div class="icon">👨‍⚕️</div>
+        <h2>الأطباء</h2>
+        <p>نتائج بحث، حضور، أرقام، ملاحظات، مقارنة ومصادر.</p>
+      </div>
 
-  <div class="box">
-    <strong>ابحث</strong>
-    <input id="search" placeholder="اكتب اسم طبيب أو اختصاص">
-    <div class="grid">
-      <select id="gov"><option value="">كل المحافظات</option></select>
-      <select id="spec"><option value="">كل الاختصاصات</option></select>
+      <div class="home-card" onclick="openSection('labs')">
+        <div class="icon">🧪</div>
+        <h2>المختبرات</h2>
+        <p>أسعار، فحوصات، معلومات، وثائق منشورة ومقارنات.</p>
+      </div>
+
+      <div class="home-card" onclick="openSection('devices')">
+        <div class="icon">🩺</div>
+        <h2>الأجهزة</h2>
+        <p>مقارنة موديلات، أسعار، انتشار، ملاحظات ونتائج البحث.</p>
+      </div>
     </div>
-    <div class="count" id="count"></div>
-  </div>
+  </section>
 
-  <div id="results"></div>
+  <section id="doctorsView" class="hidden">
+    <div class="topbar">
+      <button class="back" onclick="goHome()">رجوع</button>
+      <strong>الأطباء</strong>
+    </div>
 
-  <div class="footer">
-    معلومات هذا التطبيق للتعريف والمقارنة ولا تُعد تشخيصًا أو توصية طبية.<br>
-    دورناه — نسخة تجريبية.
-  </div>
+    <div class="notice">الأسماء والأرقام الحالية تجريبية فقط حتى نبني الشكل النهائي.</div>
+
+    <div class="box">
+      <input id="search" placeholder="ابحث باسم الطبيب أو الاختصاص">
+      <div class="grid">
+        <select id="gov"><option value="">كل المحافظات</option></select>
+        <select id="spec"><option value="">كل الاختصاصات</option></select>
+      </div>
+      <div class="count" id="count"></div>
+    </div>
+
+    <div id="doctorResults"></div>
+  </section>
+
+  <section id="labsView" class="hidden">
+    <div class="topbar">
+      <button class="back" onclick="goHome()">رجوع</button>
+      <strong>المختبرات</strong>
+    </div>
+    <div class="box">
+      <div class="name">قسم المختبرات جاهز للبناء</div>
+      <div class="meta">لاحقًا نضيف الأسعار، الفحوصات، الوثائق المنشورة، سرعة النتائج والمقارنات.</div>
+    </div>
+  </section>
+
+  <section id="devicesView" class="hidden">
+    <div class="topbar">
+      <button class="back" onclick="goHome()">رجوع</button>
+      <strong>الأجهزة</strong>
+    </div>
+    <div class="box">
+      <div class="name">قسم الأجهزة جاهز للبناء</div>
+      <div class="meta">لاحقًا نضيف الموديلات، الأسعار، الانتشار، التحقق، المميزات والعيوب.</div>
+    </div>
+  </section>
+
+  <div class="footer">دورناه — نسخة تجريبية لبناء نظام البحث والمقارنة.</div>
 </div>
 
 <dialog id="details">
@@ -71,11 +133,27 @@
 </dialog>
 
 <script src="./doctors.js"></script>
+<script src="./labs.js"></script>
+<script src="./devices.js"></script>
 <script>
+const views = {
+  home: document.getElementById("homeView"),
+  doctors: document.getElementById("doctorsView"),
+  labs: document.getElementById("labsView"),
+  devices: document.getElementById("devicesView")
+};
+
+function showView(name){
+  Object.values(views).forEach(v=>v.classList.add("hidden"));
+  views[name].classList.remove("hidden");
+}
+function openSection(name){ showView(name); }
+function goHome(){ showView("home"); }
+
 const search = document.getElementById("search");
 const gov = document.getElementById("gov");
 const spec = document.getElementById("spec");
-const results = document.getElementById("results");
+const doctorResults = document.getElementById("doctorResults");
 const count = document.getElementById("count");
 const details = document.getElementById("details");
 const detailContent = document.getElementById("detailContent");
@@ -89,83 +167,106 @@ unique(doctors.map(d=>d.spec)).forEach(v=>{
   const o=document.createElement("option"); o.value=v; o.textContent=v; spec.appendChild(o);
 });
 
-function getFavs(){ return JSON.parse(localStorage.getItem("favs") || "[]"); }
-function setFavs(v){ localStorage.setItem("favs", JSON.stringify(v)); render(); }
-
-function toggleFav(id){
-  let favs=getFavs();
-  favs = favs.includes(id) ? favs.filter(x=>x!==id) : [...favs,id];
-  setFavs(favs);
-}
-
 function openDoc(id){
   const d=doctors.find(x=>x.id===id);
-  const src = d.sources?.length
-    ? `<ul>${d.sources.map(s=>`<li><a href="${s}" target="_blank">فتح المصدر</a></li>`).join("")}</ul>`
+
+  const sources = d.sources && d.sources.length
+    ? d.sources.map((s,i)=>`<div class="source">${i+1}. <a href="${s.url}" target="_blank">${s.label}</a></div>`).join("")
     : "لا توجد مصادر مضافة بعد.";
+
   detailContent.innerHTML = `
     <h2>${d.name}</h2>
     <div class="badge">${d.spec} • ${d.gov}</div>
-    <p><b>المنطقة:</b> ${d.area || "غير مضاف"}</p>
-    <p><b>العنوان:</b> ${d.address || "غير مضاف"}</p>
-    <p><b>الهاتف:</b> ${d.phone || "غير مضاف"}</p>
-    <p><b>ملاحظة دورناه:</b> ${d.note || "لا توجد ملاحظة."}</p>
-    <p><b>المصادر:</b><br>${src}</p>
-    <p><b>آخر تحديث:</b> ${d.updated || "غير مضاف"}</p>`;
+
+    <div class="research-block">
+      <h3>خلاصة بحث دورناه</h3>
+      <div class="meta">${d.summary}</div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric">
+        <span>مرات الذكر في العينة</span>
+        <b>${d.mentions}</b>
+      </div>
+      <div class="metric">
+        <span>الحضور الرقمي</span>
+        <b>${d.digitalScore}/10</b>
+      </div>
+      <div class="metric">
+        <span>الحضور الميداني التقديري</span>
+        <b>${d.fieldScore}/10</b>
+      </div>
+      <div class="metric">
+        <span>ترتيبه داخل البحث</span>
+        <b>${d.rankText}</b>
+      </div>
+    </div>
+
+    <div class="research-block">
+      <h3>شنو لقينا؟</h3>
+      <div class="meta">${d.findings}</div>
+    </div>
+
+    <div class="research-block">
+      <h3>ملاحظات المقارنة</h3>
+      <div class="meta">${d.comparisonNote}</div>
+    </div>
+
+    <div class="research-block">
+      <h3>معلومات العيادة</h3>
+      <div class="meta">
+        المنطقة: ${d.area || "غير مضاف"}<br>
+        العنوان: ${d.address || "غير مضاف"}<br>
+        الهاتف: ${d.phone || "غير مضاف"}
+      </div>
+    </div>
+
+    <div class="research-block">
+      <h3>المصادر</h3>
+      ${sources}
+    </div>
+
+    <div class="research-block">
+      <div class="meta">آخر تحديث: ${d.updated}</div>
+    </div>
+  `;
   details.showModal();
 }
 
-async function shareDoc(id){
-  const d=doctors.find(x=>x.id===id);
-  const text=`${d.name} - ${d.spec} - ${d.gov} | دورناه`;
-  if(navigator.share){
-    try{ await navigator.share({title:"دورناه",text,url:location.href}); }catch(e){}
-  } else {
-    try{
-      await navigator.clipboard.writeText(text+" "+location.href);
-      alert("تم نسخ المعلومات");
-    }catch(e){}
-  }
-}
-
-function render(){
+function renderDoctors(){
   const q=search.value.trim().toLowerCase();
-  const favs=getFavs();
+
   const filtered=doctors.filter(d=>{
-    const hay=(d.name+" "+d.spec+" "+d.gov+" "+(d.area||"")+" "+(d.address||"")).toLowerCase();
-    const matchesQ=!q || hay.includes(q);
-    const matchesGov=!gov.value || d.gov===gov.value;
-    const matchesSpec=!spec.value || d.spec===spec.value;
-    return matchesQ && matchesGov && matchesSpec;
+    const hay=(d.name+" "+d.spec+" "+d.gov+" "+(d.area||"")).toLowerCase();
+    return (!q || hay.includes(q))
+      && (!gov.value || d.gov===gov.value)
+      && (!spec.value || d.spec===spec.value);
   });
 
-  count.textContent = `عدد النتائج: ${filtered.length}`;
+  count.textContent=`عدد النتائج: ${filtered.length}`;
 
   if(!filtered.length){
-    results.innerHTML='<div class="empty">لا توجد نتائج.</div>';
+    doctorResults.innerHTML='<div class="empty">لا توجد نتائج.</div>';
     return;
   }
 
-  results.innerHTML=filtered.map(d=>`
+  doctorResults.innerHTML=filtered.map(d=>`
     <div class="card">
       <div class="name">${d.name}</div>
       <div class="badge">${d.spec}</div>
       <div class="meta">
-        المحافظة: ${d.gov}<br>
-        المنطقة: ${d.area || "غير مضاف"}<br>
-        آخر تحديث: ${d.updated || "غير مضاف"}
+        ${d.gov} • ${d.area || "المنطقة غير مضافة"}<br>
+        ${d.shortResult}
       </div>
       <div class="actions">
-        <button class="primary" onclick="openDoc(${d.id})">عرض التفاصيل</button>
-        <button class="light fav ${favs.includes(d.id)?"on":""}" onclick="toggleFav(${d.id})">
-          ${favs.includes(d.id)?"★ محفوظ":"☆ حفظ"}
-        </button>
-        <button class="light" onclick="shareDoc(${d.id})">مشاركة</button>
+        <button class="primary" onclick="openDoc(${d.id})">شوف نتيجة البحث</button>
       </div>
-    </div>`).join("");
+    </div>
+  `).join("");
 }
-[search,gov,spec].forEach(el=>el.addEventListener("input",render));
-render();
+
+[search,gov,spec].forEach(el=>el.addEventListener("input",renderDoctors));
+renderDoctors();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));
