@@ -30,11 +30,13 @@ input,select{width:100%;padding:13px;border:1px solid #d7d8dc;border-radius:12px
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 button{border:0;border-radius:11px;padding:10px 13px;font-size:14px;cursor:pointer}
 .primary{background:#111827;color:#fff}
+.light{background:#eef0f3}
 .notice{font-size:13px;background:#fff7d6;border:1px solid #eddc90;color:#6b5200;padding:10px;border-radius:12px;margin:10px 0}
 .count{font-size:13px;color:#666;margin-top:10px}
 .empty{text-align:center;color:#666;padding:26px}
 .footer{text-align:center;color:#777;font-size:12px;margin-top:28px;line-height:1.8}
 .hidden{display:none!important}
+
 dialog{border:0;border-radius:22px;width:min(96vw,680px);padding:0;max-height:92vh}
 dialog::backdrop{background:rgba(0,0,0,.55)}
 .modal{padding:18px;overflow:auto;max-height:92vh}
@@ -54,7 +56,16 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
 .source:last-child{border-bottom:0}
 .compare-btn{width:100%;padding:13px;margin-top:12px;font-weight:700}
 .small-note{font-size:12px;color:#777;line-height:1.7;margin-top:8px}
-@media(max-width:520px){.grid,.metrics{grid-template-columns:1fr}}
+
+.compare-top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.compare-name{font-weight:900;font-size:17px;text-align:center;padding:10px;background:#f4f5f7;border-radius:12px}
+.compare-table{width:100%;border-collapse:collapse;margin-top:12px}
+.compare-table th,.compare-table td{border-bottom:1px solid #e8e8eb;padding:11px 7px;font-size:13px;vertical-align:top}
+.compare-table th{background:#fafafa}
+.compare-label{font-weight:700;width:30%}
+.compare-summary{margin-top:12px;padding:12px;border-radius:14px;background:#f7f7f8;line-height:1.8;font-size:14px}
+.full{width:100%}
+@media(max-width:520px){.grid,.metrics,.compare-top{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -72,7 +83,12 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
 
 <section id="doctorsView" class="hidden">
 <div class="topbar"><button class="back" onclick="goHome()">رجوع</button><strong>الأطباء</strong></div>
-<div class="notice">البيانات الحالية تجريبية فقط لاختبار قالب صفحة الطبيب.</div>
+<div class="notice">البيانات الحالية تجريبية فقط لاختبار القالب والمقارنة.</div>
+
+<div class="box">
+<button class="primary full" onclick="openCompare()">قارن بين طبيبين</button>
+</div>
+
 <div class="box">
 <input id="search" placeholder="ابحث باسم الطبيب أو الاختصاص">
 <div class="grid"><select id="gov"><option value="">كل المحافظات</option></select><select id="spec"><option value="">كل الاختصاصات</option></select></div>
@@ -89,6 +105,19 @@ dialog::backdrop{background:rgba(0,0,0,.55)}
 
 <dialog id="details"><div class="modal"><button class="close" onclick="details.close()">إغلاق</button><div id="detailContent"></div></div></dialog>
 
+<dialog id="compareDialog">
+<div class="modal">
+<button class="close" onclick="compareDialog.close()">إغلاق</button>
+<h2>مقارنة طبيبين</h2>
+<div class="grid">
+<select id="doctorA"></select>
+<select id="doctorB"></select>
+</div>
+<button class="primary full" style="margin-top:10px" onclick="renderComparison()">اعرض المقارنة</button>
+<div id="comparisonResult"></div>
+</div>
+</dialog>
+
 <script src="./doctors.js"></script>
 <script src="./labs.js"></script>
 <script src="./devices.js"></script>
@@ -98,7 +127,10 @@ function showView(name){Object.values(views).forEach(v=>v.classList.add("hidden"
 function openSection(name){showView(name)}
 function goHome(){showView("home")}
 
-const search=document.getElementById("search"),gov=document.getElementById("gov"),spec=document.getElementById("spec"),doctorResults=document.getElementById("doctorResults"),count=document.getElementById("count"),details=document.getElementById("details"),detailContent=document.getElementById("detailContent");
+const search=document.getElementById("search"),gov=document.getElementById("gov"),spec=document.getElementById("spec"),doctorResults=document.getElementById("doctorResults"),count=document.getElementById("count");
+const details=document.getElementById("details"),detailContent=document.getElementById("detailContent");
+const compareDialog=document.getElementById("compareDialog"),doctorA=document.getElementById("doctorA"),doctorB=document.getElementById("doctorB"),comparisonResult=document.getElementById("comparisonResult");
+
 function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ar"))}
 unique(doctors.map(d=>d.gov)).forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;gov.appendChild(o)});
 unique(doctors.map(d=>d.spec)).forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;spec.appendChild(o)});
@@ -126,6 +158,7 @@ function openDoc(id){
  if(d.price)clinic.push(`سعر الكشف: ${d.price}`);
  if(d.hours)clinic.push(`الدوام: ${d.hours}`);
  const m=metricsHtml(d);
+
  detailContent.innerHTML=`
  <div class="doctor-title">${d.name}</div>
  <div class="doctor-sub">${[d.spec,d.gov].filter(Boolean).join(" • ")}</div>
@@ -136,9 +169,59 @@ function openDoc(id){
  ${sec("معلومات العيادة",clinic.length?`<p>${clinic.join("<br>")}</p>`:"")}
  ${sec("المصادر",sources(d.sources))}
  ${d.updated?sec("آخر تحديث",`<p>${d.updated}</p>`):""}
- <button class="primary compare-btn" onclick="alert('ميزة المقارنة راح نضيفها بالمرحلة الجاية')">قارن مع طبيب آخر</button>
+ <button class="primary compare-btn" onclick="details.close();openCompare(${d.id})">قارن مع طبيب آخر</button>
  <div class="small-note">نتائج دورناه مبنية على المعلومات التي تم جمعها ضمن البحث، وليست حكمًا على الكفاءة الطبية.</div>`;
  details.showModal();
+}
+
+function fillCompareSelects(){
+ const options=doctors.map(d=>`<option value="${d.id}">${d.name} — ${d.spec||""} — ${d.gov||""}</option>`).join("");
+ doctorA.innerHTML=options;
+ doctorB.innerHTML=options;
+ if(doctors.length>1)doctorB.selectedIndex=1;
+}
+
+function openCompare(firstId=null){
+ fillCompareSelects();
+ comparisonResult.innerHTML="";
+ if(firstId!=null){
+  doctorA.value=String(firstId);
+  const other=doctors.find(d=>d.id!==firstId);
+  if(other)doctorB.value=String(other.id);
+ }
+ compareDialog.showModal();
+}
+
+function valueOrDash(v){return (v===undefined||v===null||v==="")?"—":v}
+function joinList(v){return v&&v.length?v.join("، "):"—"}
+
+function renderComparison(){
+ const a=doctors.find(d=>String(d.id)===doctorA.value);
+ const b=doctors.find(d=>String(d.id)===doctorB.value);
+
+ if(!a||!b){comparisonResult.innerHTML='<div class="notice">اختَر طبيبين.</div>';return}
+ if(a.id===b.id){comparisonResult.innerHTML='<div class="notice">اختَر طبيبين مختلفين.</div>';return}
+
+ comparisonResult.innerHTML=`
+ <div class="compare-top">
+   <div class="compare-name">${a.name}</div>
+   <div class="compare-name">${b.name}</div>
+ </div>
+ <table class="compare-table">
+   <tr><th class="compare-label">المعلومة</th><th>${a.name}</th><th>${b.name}</th></tr>
+   <tr><td class="compare-label">الاختصاص</td><td>${valueOrDash(a.spec)}</td><td>${valueOrDash(b.spec)}</td></tr>
+   <tr><td class="compare-label">المحافظة</td><td>${valueOrDash(a.gov)}</td><td>${valueOrDash(b.gov)}</td></tr>
+   <tr><td class="compare-label">حجم العينة</td><td>${valueOrDash(a.sampleSize)}</td><td>${valueOrDash(b.sampleSize)}</td></tr>
+   <tr><td class="compare-label">مرات الذكر</td><td>${valueOrDash(a.mentions)}</td><td>${valueOrDash(b.mentions)}</td></tr>
+   <tr><td class="compare-label">الترشيحات المباشرة</td><td>${valueOrDash(a.directRecommendations)}</td><td>${valueOrDash(b.directRecommendations)}</td></tr>
+   <tr><td class="compare-label">المتابعون</td><td>${valueOrDash(a.followers)}</td><td>${valueOrDash(b.followers)}</td></tr>
+   <tr><td class="compare-label">الترتيب داخل البحث</td><td>${valueOrDash(a.rankText)}</td><td>${valueOrDash(b.rankText)}</td></tr>
+ </table>
+
+ <div class="compare-summary"><b>${a.name}</b><br>${valueOrDash(a.summary)}</div>
+ <div class="compare-summary"><b>${b.name}</b><br>${valueOrDash(b.summary)}</div>
+
+ <div class="small-note">المقارنة تعرض نتائج البحث المضافة إلى دورناه فقط، ولا تعني أن أحد الطبيبين أفضل طبيًا.</div>`;
 }
 
 function renderDoctors(){
@@ -151,8 +234,10 @@ function renderDoctors(){
  if(!filtered.length){doctorResults.innerHTML='<div class="empty">لا توجد نتائج.</div>';return}
  doctorResults.innerHTML=filtered.map(d=>`<div class="card"><div class="name">${d.name}</div><div class="badge">${d.spec||""}</div><div class="meta">${[d.gov,d.area].filter(Boolean).join(" • ")}<br>${d.shortResult||""}</div><div class="actions"><button class="primary" onclick="openDoc(${d.id})">شوف نتيجة البحث</button></div></div>`).join("");
 }
+
 [search,gov,spec].forEach(el=>el.addEventListener("input",renderDoctors));
 renderDoctors();
+
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"))}
 </script>
 </body>
