@@ -1,1 +1,1 @@
-const devices = [];
+const devices=[];

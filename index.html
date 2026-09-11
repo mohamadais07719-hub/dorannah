@@ -1,244 +1,75 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
-<title>دورناه</title>
+<!doctype html><html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827"><title>دورناه</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:#f6f7f9;color:#161616}
-.wrap{max-width:760px;margin:auto;padding:16px 14px 90px}
-.head{background:#111827;color:#fff;border-radius:24px;padding:20px;margin-bottom:14px}
-.head h1{margin:0 0 6px;font-size:30px}
-.sub{font-size:14px;line-height:1.8;opacity:.9}
-.section-title{font-size:20px;font-weight:800;margin:18px 2px 10px}
-.home-grid{display:grid;grid-template-columns:1fr;gap:12px}
-.home-card{background:#fff;border:1px solid #e7e7ea;border-radius:20px;padding:18px;cursor:pointer}
-.home-card h2{margin:0 0 5px;font-size:21px}
-.home-card p{margin:0;color:#666;font-size:14px;line-height:1.7}
-.icon{font-size:28px;margin-bottom:8px}
-.topbar{display:flex;align-items:center;gap:9px;margin-bottom:12px}
-.back{background:#eceef1;border:0;border-radius:11px;padding:9px 12px}
-.box,.card{background:#fff;border:1px solid #e7e7ea;border-radius:18px;padding:14px;margin:10px 0}
-input,select{width:100%;padding:13px;border:1px solid #d7d8dc;border-radius:12px;background:white;font-size:16px;margin-top:8px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.name{font-size:19px;font-weight:800;margin-bottom:5px}
-.badge{display:inline-block;background:#eef0f3;border-radius:999px;padding:5px 9px;font-size:12px;margin:3px 0 8px}
-.meta{font-size:14px;color:#555;line-height:1.8}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-button{border:0;border-radius:11px;padding:10px 13px;font-size:14px;cursor:pointer}
-.primary{background:#111827;color:#fff}
-.light{background:#eef0f3}
-.notice{font-size:13px;background:#fff7d6;border:1px solid #eddc90;color:#6b5200;padding:10px;border-radius:12px;margin:10px 0}
-.count{font-size:13px;color:#666;margin-top:10px}
-.empty{text-align:center;color:#666;padding:26px}
-.footer{text-align:center;color:#777;font-size:12px;margin-top:28px;line-height:1.8}
-.hidden{display:none!important}
-
-dialog{border:0;border-radius:22px;width:min(96vw,680px);padding:0;max-height:92vh}
-dialog::backdrop{background:rgba(0,0,0,.55)}
-.modal{padding:18px;overflow:auto;max-height:92vh}
-.close{float:left;background:#eef0f3}
-.doctor-title{font-size:24px;font-weight:900;margin:8px 0 4px}
-.doctor-sub{color:#666;font-size:14px;margin-bottom:14px}
-.section{background:#fff;border:1px solid #e8e8eb;border-radius:16px;padding:14px;margin:10px 0}
-.section h3{margin:0 0 9px;font-size:16px}
-.section p{margin:0;color:#4f4f4f;line-height:1.9;font-size:14px}
-.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.metric{background:#f4f5f7;border-radius:14px;padding:12px}
-.metric .label{font-size:12px;color:#686868}
-.metric .value{font-size:21px;font-weight:900;margin-top:5px}
-.bullet{padding:7px 0;border-bottom:1px solid #efeff1;font-size:14px;line-height:1.7}
-.bullet:last-child{border-bottom:0}
-.source{padding:7px 0;border-bottom:1px solid #efeff1;font-size:13px}
-.source:last-child{border-bottom:0}
-.compare-btn{width:100%;padding:13px;margin-top:12px;font-weight:700}
-.small-note{font-size:12px;color:#777;line-height:1.7;margin-top:8px}
-
-.compare-top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-.compare-name{font-weight:900;font-size:17px;text-align:center;padding:10px;background:#f4f5f7;border-radius:12px}
-.compare-table{width:100%;border-collapse:collapse;margin-top:12px}
-.compare-table th,.compare-table td{border-bottom:1px solid #e8e8eb;padding:11px 7px;font-size:13px;vertical-align:top}
-.compare-table th{background:#fafafa}
-.compare-label{font-weight:700;width:30%}
-.compare-summary{margin-top:12px;padding:12px;border-radius:14px;background:#f7f7f8;line-height:1.8;font-size:14px}
-.full{width:100%}
-@media(max-width:520px){.grid,.metrics,.compare-top{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Tahoma;background:#f5f6f8;color:#151515}
+.wrap{max-width:760px;margin:auto;padding:16px 14px 90px}.hero{background:#111827;color:#fff;border-radius:24px;padding:20px}
+h1{margin:0 0 6px}.muted{color:#666;font-size:13px;line-height:1.7}.hidden{display:none}
+.card,.section{background:#fff;border:1px solid #e6e7ea;border-radius:18px;padding:14px;margin:10px 0}
+.home{display:grid;gap:10px}.home .card{cursor:pointer}.title{font-size:20px;font-weight:900}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+button{border:0;border-radius:12px;padding:10px 13px}.dark{background:#111827;color:white}.light{background:#eceef1}
+input,select{width:100%;padding:12px;border:1px solid #d7d9de;border-radius:12px;background:#fff;font-size:16px;margin-top:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.kpis{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.kpi{background:#f3f4f6;border-radius:14px;padding:12px}.kpi b{display:block;font-size:24px;margin-top:4px}.kpi span{font-size:12px;color:#666}
+.ringrow{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center}.ring{--p:0;width:105px;height:105px;border-radius:50%;background:conic-gradient(#111827 calc(var(--p)*1%),#e5e7eb 0);display:grid;place-items:center;position:relative}.ring:after{content:"";position:absolute;width:72px;height:72px;border-radius:50%;background:#fff}.ring b{z-index:1;font-size:21px}
+.bar{margin:11px 0}.barhead{display:flex;justify-content:space-between;font-size:13px}.track{height:11px;background:#e8eaee;border-radius:99px;overflow:hidden;margin-top:5px}.fill{height:100%;background:#111827;border-radius:99px}
+.sources .s{display:grid;grid-template-columns:75px 1fr 34px;gap:8px;align-items:center;margin:9px 0;font-size:12px}
+.trend{display:flex;gap:8px;align-items:end;height:135px}.tcol{flex:1;text-align:center}.tbar{width:65%;margin:auto;background:#111827;border-radius:8px 8px 3px 3px}.tlab{font-size:10px;color:#777;margin-top:5px}
+dialog{border:0;border-radius:22px;width:min(96vw,700px);max-height:94vh;padding:0}dialog::backdrop{background:#0008}.modal{padding:18px;max-height:94vh;overflow:auto}
+.compare{display:grid;gap:8px}.crow{display:grid;grid-template-columns:85px 1fr 42px;gap:8px;align-items:center;font-size:12px}
+@media(max-width:520px){.grid,.kpis{grid-template-columns:1fr}.ringrow{grid-template-columns:100px 1fr}}
+</style></head><body>
 <div class="wrap">
-<div class="head"><h1>دورناه</h1><div class="sub">نبحث بدل الناس، نجمع المعلومات المشتتة، ونختصرها حتى تساعدك على اتخاذ قرار أفضل.</div></div>
+<div class="hero"><h1>دورناه</h1><div>نتائج البحث والمقارنة بشكل بصري واضح.</div></div>
 
-<section id="homeView">
-<div class="section-title">شنو تريد تبحث؟</div>
-<div class="home-grid">
-<div class="home-card" onclick="openSection('doctors')"><div class="icon">👨‍⚕️</div><h2>الأطباء</h2><p>نتائج البحث، المقارنة، الأرقام والمصادر.</p></div>
-<div class="home-card" onclick="openSection('labs')"><div class="icon">🧪</div><h2>المختبرات</h2><p>الأسعار، الفحوصات، المعلومات والمقارنات.</p></div>
-<div class="home-card" onclick="openSection('devices')"><div class="icon">🩺</div><h2>الأجهزة</h2><p>الموديلات، الأسعار، المميزات ونتائج البحث.</p></div>
-</div>
+<section id="home">
+<div class="home">
+<div class="card" onclick="show('doctors')"><div class="title">👨‍⚕️ الأطباء</div><div class="muted">إحصائيات، نسب، ترتيب، ومقارنة.</div></div>
+<div class="card" onclick="show('labs')"><div class="title">🧪 المختبرات</div><div class="muted">أسعار وفحوصات ومؤشرات مقارنة.</div></div>
+<div class="card" onclick="show('devices')"><div class="title">🩺 الأجهزة</div><div class="muted">موديلات وأسعار ونتائج بحث.</div></div>
+</div></section>
+
+<section id="doctors" class="hidden">
+<div class="row"><button class="light" onclick="show('home')">رجوع</button><b>الأطباء</b></div>
+<div class="card"><button class="dark" style="width:100%" onclick="openCompare()">قارن بين طبيبين</button>
+<input id="q" placeholder="ابحث باسم الطبيب أو الاختصاص"><div class="grid"><select id="gov"><option value="">كل المحافظات</option></select><select id="spec"><option value="">كل الاختصاصات</option></select></div></div>
+<div id="doctorList"></div>
 </section>
 
-<section id="doctorsView" class="hidden">
-<div class="topbar"><button class="back" onclick="goHome()">رجوع</button><strong>الأطباء</strong></div>
-<div class="notice">البيانات الحالية تجريبية فقط لاختبار القالب والمقارنة.</div>
-
-<div class="box">
-<button class="primary full" onclick="openCompare()">قارن بين طبيبين</button>
+<section id="labs" class="hidden"><div class="row"><button class="light" onclick="show('home')">رجوع</button><b>المختبرات</b></div><div class="card">قالب المختبرات جاهز، وسنربطه لاحقًا ببيانات حقيقية ورسوم خاصة بالأسعار والفحوصات.</div></section>
+<section id="devices" class="hidden"><div class="row"><button class="light" onclick="show('home')">رجوع</button><b>الأجهزة</b></div><div class="card">قالب الأجهزة جاهز، وسنضيف لاحقًا رسوم السعر والانتشار والتحقق والمقارنة.</div></section>
 </div>
 
-<div class="box">
-<input id="search" placeholder="ابحث باسم الطبيب أو الاختصاص">
-<div class="grid"><select id="gov"><option value="">كل المحافظات</option></select><select id="spec"><option value="">كل الاختصاصات</option></select></div>
-<div class="count" id="count"></div>
-</div>
-<div id="doctorResults"></div>
-</section>
+<dialog id="docDlg"><div class="modal"><button class="light" onclick="docDlg.close()">إغلاق</button><div id="docBody"></div></div></dialog>
+<dialog id="cmpDlg"><div class="modal"><button class="light" onclick="cmpDlg.close()">إغلاق</button><h2>مقارنة طبيبين</h2><div class="grid"><select id="a"></select><select id="b"></select></div><button class="dark" style="width:100%;margin-top:10px" onclick="compare()">اعرض المقارنة</button><div id="cmpBody"></div></div></dialog>
 
-<section id="labsView" class="hidden"><div class="topbar"><button class="back" onclick="goHome()">رجوع</button><strong>المختبرات</strong></div><div class="box"><div class="name">قسم المختبرات لاحقًا</div></div></section>
-<section id="devicesView" class="hidden"><div class="topbar"><button class="back" onclick="goHome()">رجوع</button><strong>الأجهزة</strong></div><div class="box"><div class="name">قسم الأجهزة لاحقًا</div></div></section>
-
-<div class="footer">دورناه — نسخة تجريبية.</div>
-</div>
-
-<dialog id="details"><div class="modal"><button class="close" onclick="details.close()">إغلاق</button><div id="detailContent"></div></div></dialog>
-
-<dialog id="compareDialog">
-<div class="modal">
-<button class="close" onclick="compareDialog.close()">إغلاق</button>
-<h2>مقارنة طبيبين</h2>
-<div class="grid">
-<select id="doctorA"></select>
-<select id="doctorB"></select>
-</div>
-<button class="primary full" style="margin-top:10px" onclick="renderComparison()">اعرض المقارنة</button>
-<div id="comparisonResult"></div>
-</div>
-</dialog>
-
-<script src="./doctors.js"></script>
-<script src="./labs.js"></script>
-<script src="./devices.js"></script>
+<script src="./doctors.js"></script><script src="./labs.js"></script><script src="./devices.js"></script>
 <script>
-const views={home:document.getElementById("homeView"),doctors:document.getElementById("doctorsView"),labs:document.getElementById("labsView"),devices:document.getElementById("devicesView")};
-function showView(name){Object.values(views).forEach(v=>v.classList.add("hidden"));views[name].classList.remove("hidden")}
-function openSection(name){showView(name)}
-function goHome(){showView("home")}
-
-const search=document.getElementById("search"),gov=document.getElementById("gov"),spec=document.getElementById("spec"),doctorResults=document.getElementById("doctorResults"),count=document.getElementById("count");
-const details=document.getElementById("details"),detailContent=document.getElementById("detailContent");
-const compareDialog=document.getElementById("compareDialog"),doctorA=document.getElementById("doctorA"),doctorB=document.getElementById("doctorB"),comparisonResult=document.getElementById("comparisonResult");
-
-function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ar"))}
-unique(doctors.map(d=>d.gov)).forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;gov.appendChild(o)});
-unique(doctors.map(d=>d.spec)).forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;spec.appendChild(o)});
-
-function sec(title,content){return content?`<div class="section"><h3>${title}</h3>${content}</div>`:""}
-function paragraph(text){return text?`<p>${text}</p>`:""}
-function bullets(items){return items&&items.length?items.map(x=>`<div class="bullet">• ${x}</div>`).join(""):""}
-function sources(items){return items&&items.length?items.map((s,i)=>`<div class="source">${i+1}. <a href="${s.url}" target="_blank">${s.label}</a></div>`).join(""):""}
-function metricsHtml(d){
- const arr=[];
- if(d.sampleSize!=null) arr.push(["حجم العينة",d.sampleSize]);
- if(d.mentions!=null) arr.push(["مرات الذكر",d.mentions]);
- if(d.directRecommendations!=null) arr.push(["ترشيحات مباشرة",d.directRecommendations]);
- if(d.followers!=null) arr.push(["المتابعون",d.followers]);
- if(d.rankText) arr.push(["الترتيب داخل البحث",d.rankText]);
- return arr.length?`<div class="metrics">${arr.map(([l,v])=>`<div class="metric"><div class="label">${l}</div><div class="value">${v}</div></div>`).join("")}</div>`:"";
-}
-
-function openDoc(id){
- const d=doctors.find(x=>x.id===id);
- const clinic=[];
- if(d.area)clinic.push(`المنطقة: ${d.area}`);
- if(d.address)clinic.push(`العنوان: ${d.address}`);
- if(d.phone)clinic.push(`الهاتف: ${d.phone}`);
- if(d.price)clinic.push(`سعر الكشف: ${d.price}`);
- if(d.hours)clinic.push(`الدوام: ${d.hours}`);
- const m=metricsHtml(d);
-
- detailContent.innerHTML=`
- <div class="doctor-title">${d.name}</div>
- <div class="doctor-sub">${[d.spec,d.gov].filter(Boolean).join(" • ")}</div>
- ${sec("خلاصة دورناه",paragraph(d.summary))}
- ${m?sec("أرقام البحث",m):""}
- ${sec("شنو لقينا؟",bullets(d.findings))}
- ${sec("ملاحظات المقارنة",bullets(d.comparisonNotes))}
- ${sec("معلومات العيادة",clinic.length?`<p>${clinic.join("<br>")}</p>`:"")}
- ${sec("المصادر",sources(d.sources))}
- ${d.updated?sec("آخر تحديث",`<p>${d.updated}</p>`):""}
- <button class="primary compare-btn" onclick="details.close();openCompare(${d.id})">قارن مع طبيب آخر</button>
- <div class="small-note">نتائج دورناه مبنية على المعلومات التي تم جمعها ضمن البحث، وليست حكمًا على الكفاءة الطبية.</div>`;
- details.showModal();
-}
-
-function fillCompareSelects(){
- const options=doctors.map(d=>`<option value="${d.id}">${d.name} — ${d.spec||""} — ${d.gov||""}</option>`).join("");
- doctorA.innerHTML=options;
- doctorB.innerHTML=options;
- if(doctors.length>1)doctorB.selectedIndex=1;
-}
-
-function openCompare(firstId=null){
- fillCompareSelects();
- comparisonResult.innerHTML="";
- if(firstId!=null){
-  doctorA.value=String(firstId);
-  const other=doctors.find(d=>d.id!==firstId);
-  if(other)doctorB.value=String(other.id);
- }
- compareDialog.showModal();
-}
-
-function valueOrDash(v){return (v===undefined||v===null||v==="")?"—":v}
-function joinList(v){return v&&v.length?v.join("، "):"—"}
-
-function renderComparison(){
- const a=doctors.find(d=>String(d.id)===doctorA.value);
- const b=doctors.find(d=>String(d.id)===doctorB.value);
-
- if(!a||!b){comparisonResult.innerHTML='<div class="notice">اختَر طبيبين.</div>';return}
- if(a.id===b.id){comparisonResult.innerHTML='<div class="notice">اختَر طبيبين مختلفين.</div>';return}
-
- comparisonResult.innerHTML=`
- <div class="compare-top">
-   <div class="compare-name">${a.name}</div>
-   <div class="compare-name">${b.name}</div>
- </div>
- <table class="compare-table">
-   <tr><th class="compare-label">المعلومة</th><th>${a.name}</th><th>${b.name}</th></tr>
-   <tr><td class="compare-label">الاختصاص</td><td>${valueOrDash(a.spec)}</td><td>${valueOrDash(b.spec)}</td></tr>
-   <tr><td class="compare-label">المحافظة</td><td>${valueOrDash(a.gov)}</td><td>${valueOrDash(b.gov)}</td></tr>
-   <tr><td class="compare-label">حجم العينة</td><td>${valueOrDash(a.sampleSize)}</td><td>${valueOrDash(b.sampleSize)}</td></tr>
-   <tr><td class="compare-label">مرات الذكر</td><td>${valueOrDash(a.mentions)}</td><td>${valueOrDash(b.mentions)}</td></tr>
-   <tr><td class="compare-label">الترشيحات المباشرة</td><td>${valueOrDash(a.directRecommendations)}</td><td>${valueOrDash(b.directRecommendations)}</td></tr>
-   <tr><td class="compare-label">المتابعون</td><td>${valueOrDash(a.followers)}</td><td>${valueOrDash(b.followers)}</td></tr>
-   <tr><td class="compare-label">الترتيب داخل البحث</td><td>${valueOrDash(a.rankText)}</td><td>${valueOrDash(b.rankText)}</td></tr>
- </table>
-
- <div class="compare-summary"><b>${a.name}</b><br>${valueOrDash(a.summary)}</div>
- <div class="compare-summary"><b>${b.name}</b><br>${valueOrDash(b.summary)}</div>
-
- <div class="small-note">المقارنة تعرض نتائج البحث المضافة إلى دورناه فقط، ولا تعني أن أحد الطبيبين أفضل طبيًا.</div>`;
-}
-
-function renderDoctors(){
- const q=search.value.trim().toLowerCase();
- const filtered=doctors.filter(d=>{
-  const hay=(d.name+" "+(d.spec||"")+" "+(d.gov||"")+" "+(d.area||"")).toLowerCase();
-  return (!q||hay.includes(q))&&(!gov.value||d.gov===gov.value)&&(!spec.value||d.spec===spec.value)
- });
- count.textContent=`عدد النتائج: ${filtered.length}`;
- if(!filtered.length){doctorResults.innerHTML='<div class="empty">لا توجد نتائج.</div>';return}
- doctorResults.innerHTML=filtered.map(d=>`<div class="card"><div class="name">${d.name}</div><div class="badge">${d.spec||""}</div><div class="meta">${[d.gov,d.area].filter(Boolean).join(" • ")}<br>${d.shortResult||""}</div><div class="actions"><button class="primary" onclick="openDoc(${d.id})">شوف نتيجة البحث</button></div></div>`).join("");
-}
-
-[search,gov,spec].forEach(el=>el.addEventListener("input",renderDoctors));
-renderDoctors();
-
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"))}
-</script>
-</body>
-</html>
+const ids=["home","doctors","labs","devices"];function show(x){ids.forEach(i=>document.getElementById(i).classList.toggle("hidden",i!==x))}
+const q=document.getElementById("q"),gov=document.getElementById("gov"),spec=document.getElementById("spec"),list=document.getElementById("doctorList");
+[...new Set(doctors.map(x=>x.gov))].forEach(v=>gov.innerHTML+=`<option>${v}</option>`);[...new Set(doctors.map(x=>x.spec))].forEach(v=>spec.innerHTML+=`<option>${v}</option>`);
+function pc(a,b){return b?Math.max(0,Math.min(100,Math.round(a/b*100))):0}
+function bars(d){let s=d.stats||{},out="";if(s.sampleSize&&s.mentions!=null){let p=pc(s.mentions,s.sampleSize);out+=`<div class="bar"><div class="barhead"><span>مرات الذكر</span><b>${s.mentions} من ${s.sampleSize}</b></div><div class="track"><div class="fill" style="width:${p}%"></div></div></div>`}if(s.sampleSize&&s.directRecommendations!=null){let p=pc(s.directRecommendations,s.sampleSize);out+=`<div class="bar"><div class="barhead"><span>الترشيحات المباشرة</span><b>${s.directRecommendations} من ${s.sampleSize}</b></div><div class="track"><div class="fill" style="width:${p}%"></div></div></div>`}return out}
+function sourceChart(d){let ar=d.sourceBreakdown||[];if(!ar.length)return"";let m=Math.max(...ar.map(x=>x.count),1);return `<div class="sources">${ar.map(x=>`<div class="s"><span>${x.label}</span><div class="track"><div class="fill" style="width:${x.count/m*100}%"></div></div><b>${x.count}</b></div>`).join("")}</div>`}
+function trend(d){let ar=d.researchRounds||[];if(ar.length<2)return"";let m=Math.max(...ar.map(x=>x.mentions),1);return `<div class="trend">${ar.map(x=>`<div class="tcol"><b>${x.mentions}</b><div class="tbar" style="height:${Math.max(4,x.mentions/m*90)}px"></div><div class="tlab">${x.label}</div></div>`).join("")}</div>`}
+function openDoc(id){let d=doctors.find(x=>x.id===id),s=d.stats||{},p=pc(s.directRecommendations||0,s.sampleSize||0);docBody.innerHTML=`<h2>${d.name}</h2><div class="muted">${d.spec} • ${d.gov}</div>
+<div class="section"><b>خلاصة دورناه</b><p>${d.summary||""}</p></div>
+<div class="section"><b>الأرقام الرئيسية</b><div class="kpis">
+${s.sampleSize!=null?`<div class="kpi"><span>حجم العينة</span><b>${s.sampleSize}</b></div>`:""}
+${s.mentions!=null?`<div class="kpi"><span>مرات الذكر</span><b>${s.mentions}</b></div>`:""}
+${s.directRecommendations!=null?`<div class="kpi"><span>ترشيحات مباشرة</span><b>${s.directRecommendations}</b></div>`:""}
+${s.rank!=null?`<div class="kpi"><span>الترتيب داخل البحث</span><b>${s.rank} من ${s.totalCompared}</b></div>`:""}</div></div>
+${s.sampleSize?`<div class="section"><b>نسبة الترشيح داخل العينة</b><div class="ringrow"><div class="ring" style="--p:${p}"><b>${p}%</b></div><div class="muted">${s.directRecommendations} ترشيحًا مباشرًا من أصل ${s.sampleSize} نتيجة تم تحليلها. هذه ليست نسبة كفاءة طبية.</div></div></div>`:""}
+${bars(d)?`<div class="section"><b>شكل نتائج العينة</b>${bars(d)}</div>`:""}
+${sourceChart(d)?`<div class="section"><b>من أين جاءت النتائج؟</b>${sourceChart(d)}</div>`:""}
+${trend(d)?`<div class="section"><b>تغيّر مرات الذكر مع جولات البحث</b>${trend(d)}</div>`:""}
+<div class="section"><b>ملاحظات</b><p>${(d.findings||[]).join("<br>• ")}</p></div>
+<button class="dark" style="width:100%" onclick="docDlg.close();openCompare(${d.id})">قارن مع طبيب آخر</button>`;docDlg.showModal()}
+function render(){let z=q.value.trim().toLowerCase();let f=doctors.filter(d=>(!z||(d.name+" "+d.spec).toLowerCase().includes(z))&&(!gov.value||d.gov===gov.value)&&(!spec.value||d.spec===spec.value));list.innerHTML=f.map(d=>`<div class="card"><div class="title">${d.name}</div><div class="muted">${d.spec} • ${d.gov}</div><button class="dark" style="margin-top:10px" onclick="openDoc(${d.id})">شوف الإحصائيات</button></div>`).join("")}
+[q,gov,spec].forEach(x=>x.addEventListener("input",render));render();
+function fillCmp(){let o=doctors.map(d=>`<option value="${d.id}">${d.name}</option>`).join("");a.innerHTML=o;b.innerHTML=o;if(doctors.length>1)b.selectedIndex=1}
+function openCompare(id){fillCmp();cmpBody.innerHTML="";if(id){a.value=id;let o=doctors.find(x=>x.id!==id);if(o)b.value=o.id}cmpDlg.showModal()}
+function cbar(label,x,y){let m=Math.max(x,y,1);return `<div class="section"><b>${label}</b><div class="compare"><div class="crow"><span>${doctors.find(d=>d.id==a.value).name}</span><div class="track"><div class="fill" style="width:${x/m*100}%"></div></div><b>${x}</b></div><div class="crow"><span>${doctors.find(d=>d.id==b.value).name}</span><div class="track"><div class="fill" style="width:${y/m*100}%"></div></div><b>${y}</b></div></div></div>`}
+function compare(){let x=doctors.find(d=>d.id==a.value),y=doctors.find(d=>d.id==b.value);if(x.id===y.id){cmpBody.innerHTML='<div class="card">اختَر طبيبين مختلفين.</div>';return}cmpBody.innerHTML=cbar("مرات الذكر",x.stats?.mentions||0,y.stats?.mentions||0)+cbar("الترشيحات المباشرة",x.stats?.directRecommendations||0,y.stats?.directRecommendations||0)+cbar("حجم العينة",x.stats?.sampleSize||0,y.stats?.sampleSize||0)}
+</script></body></html>
