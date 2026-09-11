@@ -9,7 +9,7 @@
   <style>
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:#f7f7f8;color:#151515}
-    .wrap{max-width:720px;margin:auto;padding:18px 14px 80px}
+    .wrap{max-width:720px;margin:auto;padding:18px 14px 90px}
     .head{background:#111827;color:white;border-radius:22px;padding:20px;margin-bottom:14px}
     h1{margin:0 0 6px;font-size:30px}
     .sub{opacity:.88;font-size:14px;line-height:1.7}
@@ -32,6 +32,7 @@
     dialog::backdrop{background:rgba(0,0,0,.55)}
     .modal{padding:18px}
     .close{float:left;background:#efeff1}
+    .count{font-size:13px;color:#666;margin-top:10px}
     @media(max-width:520px){.grid{grid-template-columns:1fr}}
   </style>
 </head>
@@ -42,31 +43,23 @@
     <div class="sub">نبحث بدل الناس، نجمع المعلومات المشتتة، ونختصرها حتى تساعدك على اتخاذ قرار أفضل.</div>
   </div>
 
-  <div class="notice">هذه نسخة تجريبية للتأكد من عمل التطبيق. الأطباء الموجودون هنا أسماء تجريبية وليست توصيات حقيقية.</div>
+  <div class="notice">هذه نسخة تجريبية. الأسماء الحالية للتجربة فقط، وليست توصيات حقيقية.</div>
 
   <div class="box">
     <strong>ابحث</strong>
     <input id="search" placeholder="اكتب اسم طبيب أو اختصاص">
     <div class="grid">
-      <select id="gov">
-        <option value="">كل المحافظات</option>
-        <option>النجف</option>
-        <option>بغداد</option>
-      </select>
-      <select id="spec">
-        <option value="">كل الاختصاصات</option>
-        <option>أطفال</option>
-        <option>جلدية</option>
-        <option>قلب</option>
-      </select>
+      <select id="gov"><option value="">كل المحافظات</option></select>
+      <select id="spec"><option value="">كل الاختصاصات</option></select>
     </div>
+    <div class="count" id="count"></div>
   </div>
 
   <div id="results"></div>
 
   <div class="footer">
     معلومات هذا التطبيق للتعريف والمقارنة ولا تُعد تشخيصًا أو توصية طبية.<br>
-    نسخة تجريبية من دورناه.
+    دورناه — نسخة تجريبية.
   </div>
 </div>
 
@@ -77,63 +70,96 @@
   </div>
 </dialog>
 
+<script src="./doctors.js"></script>
 <script>
-const doctors = [
-  {id:1,name:"طبيب تجريبي 1",gov:"النجف",spec:"أطفال",area:"مركز النجف",phone:"غير مضاف",updated:"11 أيلول 2026",note:"هذه بيانات تجريبية فقط."},
-  {id:2,name:"طبيب تجريبي 2",gov:"النجف",spec:"جلدية",area:"الكوفة",phone:"غير مضاف",updated:"11 أيلول 2026",note:"هذه بيانات تجريبية فقط."},
-  {id:3,name:"طبيب تجريبي 3",gov:"بغداد",spec:"قلب",area:"بغداد",phone:"غير مضاف",updated:"11 أيلول 2026",note:"هذه بيانات تجريبية فقط."}
-];
-
 const search = document.getElementById("search");
 const gov = document.getElementById("gov");
 const spec = document.getElementById("spec");
 const results = document.getElementById("results");
+const count = document.getElementById("count");
 const details = document.getElementById("details");
 const detailContent = document.getElementById("detailContent");
 
+function unique(arr){ return [...new Set(arr)].sort((a,b)=>a.localeCompare(b,"ar")); }
+
+unique(doctors.map(d=>d.gov)).forEach(v=>{
+  const o=document.createElement("option"); o.value=v; o.textContent=v; gov.appendChild(o);
+});
+unique(doctors.map(d=>d.spec)).forEach(v=>{
+  const o=document.createElement("option"); o.value=v; o.textContent=v; spec.appendChild(o);
+});
+
 function getFavs(){ return JSON.parse(localStorage.getItem("favs") || "[]"); }
 function setFavs(v){ localStorage.setItem("favs", JSON.stringify(v)); render(); }
+
 function toggleFav(id){
   let favs=getFavs();
   favs = favs.includes(id) ? favs.filter(x=>x!==id) : [...favs,id];
   setFavs(favs);
 }
+
 function openDoc(id){
   const d=doctors.find(x=>x.id===id);
+  const src = d.sources?.length
+    ? `<ul>${d.sources.map(s=>`<li><a href="${s}" target="_blank">فتح المصدر</a></li>`).join("")}</ul>`
+    : "لا توجد مصادر مضافة بعد.";
   detailContent.innerHTML = `
     <h2>${d.name}</h2>
     <div class="badge">${d.spec} • ${d.gov}</div>
-    <p><b>المنطقة:</b> ${d.area}</p>
-    <p><b>الهاتف:</b> ${d.phone}</p>
-    <p><b>ملاحظة دورناه:</b> ${d.note}</p>
-    <p><b>آخر تحديث:</b> ${d.updated}</p>
-    <p style="color:#666;font-size:13px">لاحقًا نضيف هنا المصادر، العنوان، أوقات الدوام ونتيجة البحث.</p>`;
+    <p><b>المنطقة:</b> ${d.area || "غير مضاف"}</p>
+    <p><b>العنوان:</b> ${d.address || "غير مضاف"}</p>
+    <p><b>الهاتف:</b> ${d.phone || "غير مضاف"}</p>
+    <p><b>ملاحظة دورناه:</b> ${d.note || "لا توجد ملاحظة."}</p>
+    <p><b>المصادر:</b><br>${src}</p>
+    <p><b>آخر تحديث:</b> ${d.updated || "غير مضاف"}</p>`;
   details.showModal();
 }
+
 async function shareDoc(id){
   const d=doctors.find(x=>x.id===id);
   const text=`${d.name} - ${d.spec} - ${d.gov} | دورناه`;
-  if(navigator.share){ try{await navigator.share({title:"دورناه",text,url:location.href});}catch(e){} }
-  else { await navigator.clipboard.writeText(text+" "+location.href); alert("تم نسخ المعلومات"); }
+  if(navigator.share){
+    try{ await navigator.share({title:"دورناه",text,url:location.href}); }catch(e){}
+  } else {
+    try{
+      await navigator.clipboard.writeText(text+" "+location.href);
+      alert("تم نسخ المعلومات");
+    }catch(e){}
+  }
 }
+
 function render(){
   const q=search.value.trim().toLowerCase();
   const favs=getFavs();
   const filtered=doctors.filter(d=>{
-    const matchesQ=!q || (d.name+" "+d.spec+" "+d.gov+" "+d.area).toLowerCase().includes(q);
+    const hay=(d.name+" "+d.spec+" "+d.gov+" "+(d.area||"")+" "+(d.address||"")).toLowerCase();
+    const matchesQ=!q || hay.includes(q);
     const matchesGov=!gov.value || d.gov===gov.value;
     const matchesSpec=!spec.value || d.spec===spec.value;
     return matchesQ && matchesGov && matchesSpec;
   });
-  if(!filtered.length){ results.innerHTML='<div class="empty">لا توجد نتائج.</div>'; return; }
+
+  count.textContent = `عدد النتائج: ${filtered.length}`;
+
+  if(!filtered.length){
+    results.innerHTML='<div class="empty">لا توجد نتائج.</div>';
+    return;
+  }
+
   results.innerHTML=filtered.map(d=>`
     <div class="card">
       <div class="name">${d.name}</div>
       <div class="badge">${d.spec}</div>
-      <div class="meta">المحافظة: ${d.gov}<br>المنطقة: ${d.area}<br>آخر تحديث: ${d.updated}</div>
+      <div class="meta">
+        المحافظة: ${d.gov}<br>
+        المنطقة: ${d.area || "غير مضاف"}<br>
+        آخر تحديث: ${d.updated || "غير مضاف"}
+      </div>
       <div class="actions">
         <button class="primary" onclick="openDoc(${d.id})">عرض التفاصيل</button>
-        <button class="light fav ${favs.includes(d.id)?"on":""}" onclick="toggleFav(${d.id})">${favs.includes(d.id)?"★ محفوظ":"☆ حفظ"}</button>
+        <button class="light fav ${favs.includes(d.id)?"on":""}" onclick="toggleFav(${d.id})">
+          ${favs.includes(d.id)?"★ محفوظ":"☆ حفظ"}
+        </button>
         <button class="light" onclick="shareDoc(${d.id})">مشاركة</button>
       </div>
     </div>`).join("");
