@@ -51,6 +51,17 @@ dialog{border:1px solid #2c2c2c;border-radius:24px;width:min(96vw,740px);padding
 .compareboxes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.cbox{background:#171717;border:1px solid #292929;border-radius:14px;padding:10px;text-align:center;font-size:13px;font-weight:800;color:var(--white)}
 .cmetric{margin:14px 0}.ctitle{font-size:12px;font-weight:800;margin-bottom:7px;color:var(--yellow)}.crow{display:grid;grid-template-columns:88px 1fr 42px;gap:7px;align-items:center;margin:7px 0;font-size:11px}
 .muted{font-size:12px;color:var(--muted);line-height:1.7}
+
+.device-note{background:#FFD400;color:#000;border:1px solid #FFD400;border-radius:16px;padding:12px 14px;margin:10px 0;font-size:12px;line-height:1.8;font-weight:700}
+.device-grid{display:grid;gap:10px}
+.device{background:#fff;color:#000;border:1px solid #dedede;border-radius:20px;padding:15px}
+.device-title{font-size:18px;font-weight:950}.device-brand{font-size:11px;color:#555;margin-top:3px}
+.device-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}
+.device-stat{background:#f4f4f4;border-radius:12px;padding:9px}.device-stat span{display:block;font-size:10px;color:#666}.device-stat b{display:block;font-size:15px;margin-top:3px}
+.badge-ok,.badge-limited{display:inline-block;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:900}
+.badge-ok{background:#FFD400;color:#000}.badge-limited{background:#111;color:#fff}
+.device-source{font-size:11px;line-height:1.7;color:#555;margin-top:8px}
+
 @media(max-width:560px){.filters,.kpis,.compareboxes{grid-template-columns:1fr}.overview{grid-template-columns:1fr 1fr}.ringrow{grid-template-columns:98px 1fr}.ring{width:94px;height:94px}.ring:after{width:64px;height:64px}}
 </style>
 </head>
@@ -84,7 +95,14 @@ dialog{border:1px solid #2c2c2c;border-radius:24px;width:min(96vw,740px);padding
 </section>
 
 <section id="labsView" class="hidden"><div class="top"><button class="light" onclick="showView('homeView')">رجوع</button><b>المختبرات</b></div><div class="panel">نصمم إحصائيات المختبرات بعد تثبيت قالب الأطباء.</div></section>
-<section id="devicesView" class="hidden"><div class="top"><button class="light" onclick="showView('homeView')">رجوع</button><b>الأجهزة</b></div><div class="panel">نصمم إحصائيات الأجهزة بعد تثبيت قالب الأطباء.</div></section>
+<section id="devicesView" class="hidden">
+<div class="top"><button class="light" onclick="showView('homeView')">رجوع</button><b>أجهزة قياس الضغط</b></div>
+<div class="device-note">بيانات سوق عراقية حقيقية جُمعت في 12 سبتمبر 2026. السعر هو سعر رُصد في متجر عراقي وقد يتغير. «تحقق سريري» لا يعني أن دورناه اختبر الجهاز؛ بل يعني وجود دليل تحقق منشور أو تصريح رسمي محدد للموديل/العائلة.</div>
+<div class="panel">
+<input id="deviceSearch" placeholder="ابحث باسم الجهاز أو الشركة">
+</div>
+<div id="deviceList" class="device-grid"></div>
+</section>
 </div>
 
 <dialog id="doctorDialog"><div class="modal"><button class="light" onclick="doctorDialog.close()">إغلاق</button><div id="doctorBody"></div></div></dialog>
@@ -177,6 +195,26 @@ function drawComparison(){
  if(!a||!b||a.id===b.id){compareBody.innerHTML='<div class="panel">اختَر طبيبين مختلفين.</div>';return}
  compareBody.innerHTML=`<div class="compareboxes"><div class="cbox">${a.name}</div><div class="cbox">${b.name}</div></div>${compareMetric("مرات الذكر",a,b,"mentions")}${compareMetric("الترشيحات المباشرة",a,b,"recs")}${compareMetric("حجم العينة",a,b,"sample")}<div class="section"><h3>الترتيب داخل البحث</h3><div class="compareboxes"><div class="cbox">${a.stats.rank} من ${a.stats.total}</div><div class="cbox">${b.stats.rank} من ${b.stats.total}</div></div></div>`;
 }
+
+const pressureDevices=[{"name":"OMRON M1 Basic","brand":"Omron","price":65000,"store":"مكتب القمر - بغداد","validation":"تحقق سريري","evidence":"OMRON الرسمي يصف M1 Basic بأنه معتمد سريريًا.","memory":"آخر قراءة","cuff":"22–32/42 سم"},{"name":"OMRON M3 Basic","brand":"Omron","price":135000,"store":"مكتب القمر - بغداد","validation":"دليل تحقق للعائلة","evidence":"ظهر M3 ضمن قوائم أجهزة الذراع المتحقق منها؛ يجب مطابقة رقم HEM عند الشراء.","memory":"حسب النسخة","cuff":"حسب النسخة"},{"name":"OMRON M7 Intelli IT AF","brand":"Omron","price":180000,"store":"مكتب القمر - بغداد","validation":"دليل تحقق منشور","evidence":"موديلات M7/M7 Intelli IT مدرجة ضمن أجهزة ذراع متحقق منها، مع ضرورة مطابقة رقم الموديل.","memory":"متعدد + تطبيق","cuff":"22–42 سم"},{"name":"OMRON J761","brand":"Omron","price":200000,"store":"مكتب القمر - بغداد","validation":"لم نثبت تحققًا مستقلاً","evidence":"وجوده وسعره في السوق العراقي موثقان؛ لا نعرضه كجهاز متحقق سريريًا حتى تثبيت موديله بدليل مستقل.","memory":"100 قراءة","cuff":"22–42 سم"},{"name":"Beurer BM27","brand":"Beurer","price":73000,"store":"الريان - العراق","validation":"تحقق سريري","evidence":"BM27 مدرج ضمن قوائم أجهزة الذراع المتحقق منها.","memory":"4×30","cuff":"22–42 سم"},{"name":"Beurer BM58","brand":"Beurer","price":113250,"store":"سحر هيلث كير - العراق","validation":"لم نثبت للموديل هنا","evidence":"السعر والتوفر موثقان في متجر عراقي؛ لا نضع علامة تحقق سريري دون مطابقة دراسة الموديل.","memory":"غير مثبت هنا","cuff":"غير مثبت هنا"},{"name":"Beurer BM59","brand":"Beurer","price":80000,"store":"سحر هيلث كير - بغداد","validation":"لم نثبت للموديل هنا","evidence":"الموديل معروض فعليًا في صيدلية عراقية؛ تفاصيل المنتج لدى المتجر نفسها مذكورة بأنها قيد التحقق.","memory":"غير مثبت هنا","cuff":"غير مثبت هنا"},{"name":"Rossmax Z1","brand":"Rossmax","price":50000,"store":"دجلة للمستلزمات الطبية","validation":"مكافئ لجهاز متحقق","evidence":"STRIDE BP يصنف Z1 مكافئًا لـ Rossmax CF175 الذي لديه دراسة تحقق للبالغين.","memory":"تخزين قراءات","cuff":"ذراع علوي"},{"name":"Rossmax CF175","brand":"Rossmax","price":70000,"store":"مركز الكندي - بغداد","validation":"تحقق سريري","evidence":"توجد دراسة تحقق للبالغين وفق ESH-IP 2010، وهو أساس إدراج الأجهزة المكافئة له.","memory":"حسب النسخة","cuff":"ذراع علوي"},{"name":"Jumper HAA20","brand":"Jumper","price":60000,"store":"مركز الكندي - بغداد","validation":"لم نجد تحققًا مستقلاً","evidence":"وجود الموديل وسعره في السوق العراقي موثقان؛ لم نعثر في البحث الحالي على تحقق سريري مستقل واضح للموديل.","memory":"غير مثبت هنا","cuff":"ذراع علوي"}];
+const deviceSearch=document.getElementById("deviceSearch"),deviceList=document.getElementById("deviceList");
+function renderDevices(){
+ if(!deviceList)return;
+ const q=(deviceSearch?.value||"").trim().toLowerCase();
+ const arr=pressureDevices.filter(d=>(d.name+" "+d.brand+" "+d.store+" "+d.validation).toLowerCase().includes(q));
+ deviceList.innerHTML=arr.map(d=>`<div class="device">
+   <div class="headrow"><div><div class="device-title">${d.name}</div><div class="device-brand">${d.brand}</div></div>
+   <span class="${d.validation.includes("تحقق")||d.validation.includes("مكافئ")?"badge-ok":"badge-limited"}">${d.validation}</span></div>
+   <div class="device-stats">
+    <div class="device-stat"><span>سعر رُصد بالعراق</span><b>${d.price.toLocaleString("ar-IQ")} د.ع</b></div>
+    <div class="device-stat"><span>الذاكرة</span><b>${d.memory}</b></div>
+    <div class="device-stat"><span>الكفة</span><b>${d.cuff}</b></div>
+   </div>
+   <div class="device-source"><b>مكان الرصد:</b> ${d.store}<br><b>حالة الدليل:</b> ${d.evidence}</div>
+ </div>`).join("");
+}
+if(deviceSearch)deviceSearch.addEventListener("input",renderDevices);
+renderDevices();
 
 renderDoctors();
 
