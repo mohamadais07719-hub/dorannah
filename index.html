@@ -3,113 +3,154 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#050505">
-<title>دورناه</title>
+<meta name="theme-color" content="#080808">
+<meta name="color-scheme" content="dark">
+<title>دورناه — نبحث بدل ما تحتار</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <style>
 :root{
- --black:#050505;
- --black-2:#0d0d0d;
- --black-3:#151515;
- --black-4:#242424;
- --white:#ffffff;
- --white-soft:#f2f2f2;
- --muted:#b8b8b8;
- --yellow:#ffd400;
- --yellow-soft:#2b2500;
- --yellow-line:#6b5a00;
+ --bg:#070707;--surface:#101010;--surface2:#161616;--surface3:#1d1d1d;
+ --text:#f7f7f4;--muted:#9b9b96;--line:#292929;--yellow:#ffd400;--yellow2:#ffe248;
+ --white:#fff;--black:#050505;--ok:#9ee37d;--danger:#ff7b7b;
+ --shadow:0 18px 50px rgba(0,0,0,.30);--radius:24px;--radius-sm:16px
 }
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;background:var(--black);color:var(--white-soft)}
-.app{max-width:820px;margin:auto;padding:14px 12px 90px}
-.hero{background:#000;color:var(--white);border:1px solid #222;border-radius:26px;padding:20px;margin-bottom:13px;box-shadow:0 10px 32px rgba(0,0,0,.35)}
-.hero h1{margin:0;font-size:31px;color:var(--yellow)}.hero p{margin:6px 0 0;color:#e8e8e8;font-size:14px;line-height:1.7}
-.demo{background:var(--yellow-soft);color:#ffe56a;border:1px solid var(--yellow-line);border-radius:13px;padding:9px 11px;margin-top:12px;font-size:12px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,"Segoe UI",sans-serif;min-height:100vh}
+button,input,select{font:inherit}
+button{cursor:pointer}
+svg{display:block}
 .hidden{display:none!important}
-.card,.panel{background:var(--black-2);border:1px solid #262626;border-radius:20px;padding:15px;margin:10px 0;box-shadow:0 6px 18px rgba(0,0,0,.24)}
-.home-grid{display:grid;gap:11px}.home-card{cursor:pointer;transition:transform .16s ease,border-color .16s ease}.home-card:active{transform:scale(.99)}.home-card:hover{border-color:#4a4100}.home-card h2{margin:2px 0 4px;font-size:21px;color:var(--white)}.home-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}
-.icon{font-size:28px}.top{display:flex;gap:9px;align-items:center;margin:12px 0}.top b{color:var(--yellow)}
-button{border:0;border-radius:12px;padding:10px 13px;font-size:14px;cursor:pointer;font-weight:800}.dark{background:var(--yellow);color:#080808}.light{background:#202020;color:var(--white);border:1px solid #333}.full{width:100%}
-input,select{width:100%;padding:12px;border:1px solid #3a3a3a;border-radius:12px;background:#111;color:var(--white);font-size:15px;margin-top:8px;outline:none}input:focus,select:focus{border-color:var(--yellow);box-shadow:0 0 0 2px rgba(255,212,0,.12)}input::placeholder{color:#8d8d8d}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.overview{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-.over{background:#151515;border:1px solid #242424;border-radius:15px;padding:12px}.over span{display:block;font-size:11px;color:var(--muted)}.over b{display:block;font-size:25px;margin-top:3px;color:var(--yellow)}
-.list{display:grid;gap:10px}.doctor{background:var(--black-2);border:1px solid #262626;border-radius:20px;padding:15px}
-.headrow{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.name{font-size:18px;font-weight:900;color:var(--white)}.sub{font-size:12px;color:var(--muted);line-height:1.6;margin-top:3px}.pill{font-size:10px;background:var(--yellow);color:#080808;padding:5px 8px;border-radius:999px;font-weight:900}
-.minirow{display:grid;grid-template-columns:88px 1fr 40px;gap:7px;align-items:center;margin:8px 0;font-size:11px}.minirow b{color:var(--white)}
-.track{height:10px;background:var(--black-4);border-radius:99px;overflow:hidden}.fill{height:100%;background:var(--yellow);border-radius:99px}
-dialog{border:1px solid #2c2c2c;border-radius:24px;width:min(96vw,740px);padding:0;max-height:94vh;background:var(--black-2);color:var(--white-soft)}dialog::backdrop{background:rgba(0,0,0,.78)}
-.modal{padding:17px;overflow:auto;max-height:94vh}.modal-title{font-size:26px;font-weight:950;margin:10px 0 3px;color:var(--yellow)}.modal-sub{font-size:12px;color:var(--muted);margin-bottom:9px}
-.section{background:#101010;border:1px solid #292929;border-radius:18px;padding:14px;margin:10px 0}.section h3{margin:0 0 10px;font-size:15px;color:var(--white)}
-.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.kpi{background:#171717;border:1px solid #242424;border-radius:15px;padding:12px}.kpi span{font-size:11px;color:var(--muted)}.kpi b{display:block;font-size:25px;margin-top:3px;color:var(--yellow)}.kpi small{font-size:10px;color:#929292}
-.ringrow{display:grid;grid-template-columns:116px 1fr;gap:13px;align-items:center}.ring{--p:0;width:108px;height:108px;border-radius:50%;background:conic-gradient(var(--yellow) calc(var(--p)*1%),#2a2a2a 0);display:grid;place-items:center;position:relative}.ring:after{content:"";position:absolute;width:74px;height:74px;background:var(--black-2);border-radius:50%}.ring b{z-index:1;font-size:22px;color:var(--white)}
-.bigbar{margin:13px 0}.barhead{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}.barhead b{color:var(--yellow)}.bigtrack{height:14px;background:var(--black-4);border-radius:99px;overflow:hidden}.bigfill{height:100%;background:var(--yellow);border-radius:99px}
-.sourcebar{display:flex;height:19px;border-radius:99px;overflow:hidden;margin:10px 0;background:#222}.sourcebar span:nth-child(1){background:var(--yellow)}.sourcebar span:nth-child(2){background:#fff}.sourcebar span:nth-child(3){background:#8d8d8d}.sourcebar span:nth-child(4){background:#3e3e3e}
-.legend{display:grid;grid-template-columns:1fr 1fr;gap:7px}.legend div{background:#171717;border:1px solid #252525;border-radius:10px;padding:7px;font-size:11px}.legend b{color:var(--yellow)}
-.trend{display:flex;align-items:end;gap:8px;height:165px;padding-top:8px}.tcol{flex:1;height:100%;display:flex;flex-direction:column;justify-content:end;align-items:center}.tval{font-size:11px;font-weight:800;margin-bottom:4px;color:var(--white)}.tbar{width:60%;background:var(--yellow);border-radius:8px 8px 3px 3px;min-height:4px}.tlab{font-size:10px;color:#9c9c9c;margin-top:5px}
-.finding{font-size:13px;line-height:1.7;padding:8px 0;border-bottom:1px solid #2a2a2a}.finding:last-child{border-bottom:0}
-.compareboxes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.cbox{background:#171717;border:1px solid #292929;border-radius:14px;padding:10px;text-align:center;font-size:13px;font-weight:800;color:var(--white)}
-.cmetric{margin:14px 0}.ctitle{font-size:12px;font-weight:800;margin-bottom:7px;color:var(--yellow)}.crow{display:grid;grid-template-columns:88px 1fr 42px;gap:7px;align-items:center;margin:7px 0;font-size:11px}
-.muted{font-size:12px;color:var(--muted);line-height:1.7}
+.app{max-width:780px;margin:auto;min-height:100vh;padding-bottom:100px}
 
-.device-note{background:#FFD400;color:#000;border:1px solid #FFD400;border-radius:16px;padding:12px 14px;margin:10px 0;font-size:12px;line-height:1.8;font-weight:700}
-.device-grid{display:grid;gap:10px}
-.device{background:#fff;color:#000;border:1px solid #dedede;border-radius:20px;padding:15px}
-.device-title{font-size:18px;font-weight:950}.device-brand{font-size:11px;color:#555;margin-top:3px}
-.device-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}
-.device-stat{background:#f4f4f4;border-radius:12px;padding:9px}.device-stat span{display:block;font-size:10px;color:#666}.device-stat b{display:block;font-size:15px;margin-top:3px}
-.badge-ok,.badge-limited{display:inline-block;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:900}
-.badge-ok{background:#FFD400;color:#000}.badge-limited{background:#111;color:#fff}
-.device-source{font-size:11px;line-height:1.7;color:#555;margin-top:8px}
+/* Header */
+.appbar{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06);padding:max(10px,env(safe-area-inset-top)) 16px 10px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}.brandmark{width:38px;height:38px;border-radius:13px;background:var(--yellow);color:#000;display:grid;place-items:center;font-weight:1000;font-size:19px;box-shadow:0 0 0 5px rgba(255,212,0,.06)}
+.brandtext b{display:block;font-size:19px;letter-spacing:-.4px}.brandtext span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.round-btn{width:40px;height:40px;border-radius:14px;border:1px solid var(--line);background:var(--surface2);color:var(--text);display:grid;place-items:center}
 
-@media(max-width:560px){.filters,.kpis,.compareboxes{grid-template-columns:1fr}.overview{grid-template-columns:1fr 1fr}.ringrow{grid-template-columns:98px 1fr}.ring{width:94px;height:94px}.ring:after{width:64px;height:64px}}
+/* Shared */
+.page{padding:16px}.eyebrow{font-size:11px;color:var(--yellow);font-weight:900;letter-spacing:.3px}.title{font-size:28px;line-height:1.25;margin:5px 0 4px;font-weight:1000;letter-spacing:-.7px}.subtitle{margin:0;color:var(--muted);font-size:13px;line-height:1.8}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:22px 2px 10px}.section-head h2{margin:0;font-size:18px}.section-head span{color:var(--muted);font-size:11px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.search{height:52px;border:1px solid var(--line);border-radius:18px;background:#121212;display:flex;align-items:center;gap:10px;padding:0 14px;margin-top:16px;transition:.2s}.search:focus-within{border-color:#6e5f00;box-shadow:0 0 0 3px rgba(255,212,0,.07)}.search input{border:0;outline:0;background:transparent;color:var(--text);width:100%;font-size:14px}.search input::placeholder{color:#73736f}.search svg{color:#8d8d88;flex:0 0 auto}
+.chips{display:flex;gap:8px;overflow:auto;padding:10px 0 2px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{white-space:nowrap;border:1px solid var(--line);background:var(--surface2);color:#c6c6c2;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:800}.chip.active{background:var(--yellow);color:#000;border-color:var(--yellow)}
+.primary{border:0;background:var(--yellow);color:#080808;font-weight:1000;border-radius:15px;padding:12px 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px}.secondary{border:1px solid var(--line);background:var(--surface2);color:var(--text);font-weight:900;border-radius:15px;padding:11px 14px}.full{width:100%}
+
+/* Home */
+.hero{position:relative;overflow:hidden;border-radius:30px;background:#0d0d0d;border:1px solid #252525;padding:24px 20px 20px;min-height:215px;box-shadow:var(--shadow)}
+.hero:before{content:"";position:absolute;width:250px;height:250px;border-radius:50%;background:var(--yellow);filter:blur(90px);opacity:.13;left:-80px;top:-120px}.hero:after{content:"";position:absolute;width:160px;height:160px;border:1px solid rgba(255,212,0,.18);border-radius:45px;transform:rotate(28deg);left:28px;bottom:-86px}
+.hero-content{position:relative;z-index:2;max-width:480px}.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,212,0,.09);border:1px solid rgba(255,212,0,.20);color:#ffe45b;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:900}.dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 4px rgba(255,212,0,.08)}
+.hero h1{font-size:34px;line-height:1.25;margin:14px 0 8px;letter-spacing:-1px}.hero h1 em{font-style:normal;color:var(--yellow)}.hero p{color:#b6b6b2;font-size:13px;line-height:1.9;margin:0;max-width:430px}
+.hero-actions{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.quick{padding:15px 12px;min-height:124px;position:relative;overflow:hidden;transition:.18s;cursor:pointer}.quick:active{transform:scale(.98)}.quick-icon{width:42px;height:42px;border-radius:15px;background:#1c1c1c;border:1px solid #2a2a2a;display:grid;place-items:center;margin-bottom:14px}.quick.featured .quick-icon{background:var(--yellow);color:#000;border-color:var(--yellow)}.quick b{font-size:15px;display:block}.quick small{display:block;color:var(--muted);font-size:10px;margin-top:4px;line-height:1.5}.quick-arrow{position:absolute;left:10px;top:13px;color:#555}
+
+.insight{display:grid;grid-template-columns:1.3fr .7fr;overflow:hidden;min-height:165px}.insight-copy{padding:18px}.insight-copy .label{color:var(--yellow);font-size:10px;font-weight:1000}.insight-copy h3{margin:7px 0 6px;font-size:20px}.insight-copy p{margin:0;color:var(--muted);font-size:11px;line-height:1.75}.insight-copy button{margin-top:13px}.insight-art{position:relative;background:linear-gradient(150deg,#1b1b1b,#0b0b0b);display:grid;place-items:center;border-right:1px solid var(--line)}
+.monitor{width:98px;height:116px;border-radius:22px;background:#efefe9;color:#0b0b0b;padding:11px;transform:rotate(-5deg);box-shadow:0 18px 38px #000}.monitor-screen{height:48px;background:#c9d0bc;border-radius:10px;padding:7px;font-weight:1000}.monitor-screen span{display:block;font-size:8px;opacity:.6}.monitor-screen b{font-size:20px}.monitor-btn{width:21px;height:21px;background:var(--yellow);border-radius:50%;margin:12px auto 0;border:4px solid #222}
+
+.data-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.data-box{padding:14px;background:#111;border:1px solid var(--line);border-radius:18px}.data-box b{display:block;font-size:23px;color:var(--yellow);letter-spacing:-.7px}.data-box span{font-size:9px;color:var(--muted);line-height:1.4}
+.disclaimer{margin-top:12px;background:#161400;border:1px solid #403700;color:#d8c96f;border-radius:16px;padding:11px 12px;font-size:10px;line-height:1.7}
+
+/* Page header */
+.page-hero{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.back{width:42px;height:42px;border-radius:14px;background:var(--surface2);border:1px solid var(--line);color:#fff;display:grid;place-items:center;flex:0 0 auto}.page-hero .title{font-size:26px}
+
+/* Doctors */
+.overview{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 2px}.over{padding:13px;background:#121212;border:1px solid var(--line);border-radius:18px}.over b{display:block;color:var(--yellow);font-size:21px}.over span{font-size:9px;color:var(--muted)}
+.doctor-list{display:grid;gap:11px;margin-top:14px}.doctor-card{padding:14px;display:grid;grid-template-columns:64px 1fr 34px;gap:12px;align-items:center;cursor:pointer;transition:.18s}.doctor-card:active{transform:scale(.99)}
+.avatar{width:64px;height:72px;border-radius:20px;background:linear-gradient(145deg,#2b2b2b,#141414);border:1px solid #313131;display:grid;place-items:center;position:relative;overflow:hidden}.avatar:before{content:"";position:absolute;width:42px;height:42px;border-radius:50%;background:#3b3b3b;top:10px}.avatar:after{content:"";position:absolute;width:58px;height:36px;border-radius:50% 50% 12px 12px;background:#242424;bottom:-10px}.avatar span{position:relative;z-index:2;color:var(--yellow);font-weight:1000;font-size:12px;margin-top:3px}.doctor-main b{display:block;font-size:15px}.doctor-main small{display:block;color:var(--muted);font-size:10px;margin-top:4px}.doctor-meta{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}.meta{background:#191919;border:1px solid #292929;border-radius:10px;padding:6px 8px;font-size:9px;color:#c6c6c2}.meta strong{color:var(--yellow)}.rank{width:34px;height:34px;border-radius:12px;background:#171717;border:1px solid #2d2d2d;display:grid;place-items:center;color:var(--yellow);font-size:11px;font-weight:1000}
+
+/* Devices */
+.device-list{display:grid;gap:12px;margin-top:14px}.device-card{overflow:hidden}.device-top{display:grid;grid-template-columns:105px 1fr;min-height:148px}.device-visual{background:linear-gradient(145deg,#f5f5ef,#d9d9d2);display:grid;place-items:center;padding:12px;position:relative}.device-visual:after{content:"";position:absolute;right:8px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--yellow)}
+.bp-unit{width:74px;height:92px;border-radius:18px;background:#fbfbf7;box-shadow:0 12px 25px rgba(0,0,0,.18);padding:9px;color:#111;border:1px solid #d3d3cc}.bp-brand{text-align:center;font-size:7px;font-weight:1000;margin-bottom:5px}.bp-screen{height:39px;border-radius:8px;background:#c8d0bc;padding:5px}.bp-screen span{font-size:6px;display:block;color:#4c5347}.bp-screen b{font-size:15px;line-height:1}.bp-button{width:17px;height:17px;border-radius:50%;background:var(--yellow);border:3px solid #222;margin:7px auto}.device-info{padding:14px}.device-title-row{display:flex;align-items:start;justify-content:space-between;gap:8px}.device-title-row h3{margin:0;font-size:16px}.device-brand{font-size:9px;color:var(--muted);margin-top:4px}.badge{white-space:nowrap;border-radius:999px;padding:6px 8px;font-size:8px;font-weight:1000;background:#1d1d1d;border:1px solid #2f2f2f;color:#bfbfbb}.badge.good{background:rgba(255,212,0,.10);border-color:rgba(255,212,0,.24);color:#ffe04a}.price{font-size:21px;font-weight:1000;color:var(--yellow);margin-top:15px}.price small{font-size:9px;color:var(--muted);font-weight:700}.device-bottom{padding:0 14px 14px}.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.spec{background:#161616;border:1px solid #282828;border-radius:13px;padding:9px}.spec span{display:block;color:var(--muted);font-size:8px}.spec b{display:block;font-size:10px;margin-top:4px;line-height:1.4}.evidence{margin-top:9px;border-right:2px solid var(--yellow);padding:7px 9px;background:#121212;border-radius:8px;color:#aaa;font-size:9px;line-height:1.75}
+
+/* Labs */
+.empty{margin-top:16px;padding:28px 18px;text-align:center}.empty-ico{width:72px;height:72px;border-radius:24px;background:#1a1a1a;border:1px solid #2d2d2d;margin:0 auto 14px;display:grid;place-items:center;color:var(--yellow)}.empty h3{margin:0 0 7px}.empty p{margin:0;color:var(--muted);font-size:11px;line-height:1.7}
+
+/* Dialogs */
+dialog{width:min(100% - 18px,720px);max-height:88vh;margin:auto;border:1px solid #2c2c2c;border-radius:28px 28px 12px 12px;background:#0d0d0d;color:var(--text);padding:0;box-shadow:0 30px 80px rgba(0,0,0,.6)}dialog::backdrop{background:rgba(0,0,0,.74);backdrop-filter:blur(5px)}.modal{padding:8px 15px 18px;overflow:auto;max-height:88vh}.handle{width:42px;height:4px;background:#343434;border-radius:99px;margin:8px auto 15px}.modal-close{position:sticky;top:4px;margin-right:auto;width:36px;height:36px;border-radius:12px;border:1px solid var(--line);background:#171717;color:#fff;display:grid;place-items:center;z-index:2}.modal-title{font-size:25px;font-weight:1000;margin:5px 0}.modal-sub{color:var(--muted);font-size:10px}.modal-section{background:#131313;border:1px solid #272727;border-radius:20px;padding:13px;margin-top:10px}.modal-section h3{font-size:12px;margin:0 0 10px}.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.kpi{padding:12px;background:#181818;border-radius:15px}.kpi span{font-size:9px;color:var(--muted)}.kpi b{display:block;font-size:22px;color:var(--yellow);margin-top:4px}.kpi small{font-size:8px;color:#777}.barline{margin:11px 0}.barhead{display:flex;justify-content:space-between;font-size:9px;margin-bottom:6px;color:#aaa}.barhead b{color:var(--yellow)}.track{height:8px;background:#262626;border-radius:99px;overflow:hidden}.fill{height:100%;background:var(--yellow);border-radius:99px}.sources{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.source{padding:9px;background:#191919;border-radius:12px;font-size:9px;color:#aaa}.source b{float:left;color:var(--yellow)}.finding{font-size:10px;color:#aaa;line-height:1.7;padding:8px 0;border-bottom:1px solid #262626}.finding:last-child{border-bottom:0}.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.compare-name{padding:10px;background:#181818;border:1px solid #2b2b2b;border-radius:13px;text-align:center;font-size:10px;font-weight:900}.compare-metric{margin:12px 0}.compare-metric>div:first-child{color:var(--yellow);font-size:10px;font-weight:900;margin-bottom:7px}.compare-row{display:grid;grid-template-columns:88px 1fr 32px;gap:7px;align-items:center;font-size:9px;margin:7px 0}.compare-row b{text-align:left}
+select{width:100%;border:1px solid var(--line);background:#141414;color:#eee;padding:12px;border-radius:14px;outline:0;margin:5px 0}
+
+/* Bottom nav */
+.bottom-nav{position:fixed;z-index:40;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(calc(100% - 20px),740px);height:70px;background:rgba(17,17,17,.94);border:1px solid #2b2b2b;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:24px;display:grid;grid-template-columns:repeat(4,1fr);padding:7px;box-shadow:0 18px 45px rgba(0,0,0,.42)}.nav-item{border:0;background:transparent;color:#777;border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:9px;font-weight:800}.nav-item.active{background:#202000;color:var(--yellow)}.nav-item svg{width:19px;height:19px}
+
+@media(max-width:480px){.page{padding:14px}.hero{padding:22px 17px;min-height:205px}.hero h1{font-size:30px}.quick-grid{gap:8px}.quick{padding:13px 10px;min-height:120px}.quick b{font-size:13px}.insight{grid-template-columns:1.35fr .65fr}.monitor{transform:scale(.85) rotate(-5deg)}.device-top{grid-template-columns:96px 1fr}.overview{gap:6px}.over{padding:11px}.doctor-card{grid-template-columns:58px 1fr 30px;padding:12px}.avatar{width:58px;height:66px}.spec-grid{gap:5px}.spec{padding:8px 6px}}
 </style>
 </head>
 <body>
 <div class="app">
-<div class="hero">
-<h1>دورناه</h1>
-<p>نحوّل البحث المشتت إلى أرقام ورسوم ومقارنات واضحة.</p>
-<div class="demo">نسخة عرض: جميع الأسماء والأرقام التالية وهمية 100% وليست معلومات عن أطباء حقيقيين.</div>
-</div>
+<header class="appbar">
+ <div class="brand"><div class="brandmark">د</div><div class="brandtext"><b>دورناه</b><span>بحث صحي أوضح</span></div></div>
+ <button class="round-btn" aria-label="معلومات" onclick="document.getElementById('aboutDialog').showModal()">
+  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.01"/></svg>
+ </button>
+</header>
 
-<section id="homeView">
-<div class="home-grid">
-<div class="card home-card" onclick="showView('doctorsView')"><div class="icon">👨‍⚕️</div><h2>الأطباء</h2><p>10 أطباء تجريبيين مع إحصائيات ورسوم ومقارنات.</p></div>
-<div class="card home-card" onclick="showView('labsView')"><div class="icon">🧪</div><h2>المختبرات</h2><p>قالب مستقل للمختبرات.</p></div>
-<div class="card home-card" onclick="showView('devicesView')"><div class="icon">🩺</div><h2>الأجهزة</h2><p>قالب مستقل للأجهزة الصحية.</p></div>
-</div>
+<main>
+<section id="homeView" class="page">
+ <div class="hero">
+  <div class="hero-content">
+   <div class="hero-badge"><span class="dot"></span> نبحث، نقارن، ونوضح</div>
+   <h1>نبحث بدل ما <em>تحتار.</em></h1>
+   <p>مكان واحد يجمع لك نتائج البحث عن الأطباء، المختبرات والأجهزة الصحية بشكل أبسط وأوضح.</p>
+   <div class="hero-actions"><button class="primary" onclick="showView('devicesView')">شوف أجهزة الضغط <span>←</span></button><button class="secondary" onclick="showView('doctorsView')">استكشف الأطباء</button></div>
+  </div>
+ </div>
+
+ <div class="section-head"><h2>استكشف</h2><span>اختَر القسم</span></div>
+ <div class="quick-grid">
+  <div class="card quick" onclick="showView('doctorsView')"><span class="quick-arrow">↗</span><div class="quick-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.5-4.1 3-6.3 6.5-6.3s6 2.2 6.5 6.3"/><path d="M19 5v4M17 7h4"/></svg></div><b>الأطباء</b><small>بحث ومقارنات</small></div>
+  <div class="card quick" onclick="showView('labsView')"><span class="quick-arrow">↗</span><div class="quick-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6M10 3v6l-5.5 9a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9V3"/><path d="M7.5 15h9"/></svg></div><b>المختبرات</b><small>قريبًا</small></div>
+  <div class="card quick featured" onclick="showView('devicesView')"><span class="quick-arrow">↗</span><div class="quick-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="3" width="12" height="15" rx="3"/><path d="M9 7h6M10 11h4M12 18v3"/></svg></div><b>الأجهزة</b><small>10 أجهزة ضغط</small></div>
+ </div>
+
+ <div class="section-head"><h2>بحث مميز</h2><span>محدّث</span></div>
+ <div class="card insight" onclick="showView('devicesView')">
+  <div class="insight-copy"><div class="label">السوق العراقي</div><h3>10 أجهزة ضغط قارناها لك</h3><p>أسعار مرصودة، نوع الكفة، الذاكرة وحالة الدليل السريري لكل جهاز.</p><button class="primary">عرض البحث</button></div>
+  <div class="insight-art"><div class="monitor"><div class="monitor-screen"><span>SYS</span><b>120</b></div><div class="monitor-btn"></div></div></div>
+ </div>
+
+ <div class="section-head"><h2>ماذا يوجد حاليًا؟</h2><span>نسخة تجريبية</span></div>
+ <div class="data-strip"><div class="data-box"><b>10</b><span>أجهزة ضغط ببيانات سوق</span></div><div class="data-box"><b>10</b><span>أطباء تجريبيون للقالب</span></div><div class="data-box"><b>3</b><span>أقسام رئيسية</span></div></div>
+ <div class="disclaimer">⚠️ بيانات الأطباء في هذه النسخة تجريبية ووهمية. بيانات أجهزة الضغط هي بيانات سوقية مضافة للعرض ويجب تحديث السعر عند تغيّره.</div>
 </section>
 
-<section id="doctorsView" class="hidden">
-<div class="top"><button class="light" onclick="showView('homeView')">رجوع</button><b>الأطباء</b></div>
-<div class="panel">
-<button class="dark full" onclick="openCompare()">قارن بين طبيبين</button>
-<div id="overview" class="overview"></div>
-</div>
-<div class="panel">
-<input id="searchBox" placeholder="ابحث باسم الطبيب أو الاختصاص">
-<div class="filters"><select id="govFilter"><option value="">كل المحافظات</option></select><select id="specFilter"><option value="">كل الاختصاصات</option></select></div>
-</div>
-<div id="doctorList" class="list"></div>
+<section id="doctorsView" class="page hidden">
+ <div class="page-hero"><div><div class="eyebrow">دليل دورناه</div><div class="title">الأطباء</div><p class="subtitle">رتّب نتائج البحث، صفّيها، وافتح تفاصيل كل اسم.</p></div><button class="back" onclick="showView('homeView')">←</button></div>
+ <div class="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="searchBox" placeholder="ابحث باسم الطبيب، الاختصاص أو المحافظة"></div>
+ <div id="specialtyChips" class="chips"></div>
+ <div id="overview" class="overview"></div>
+ <div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="secondary" onclick="openCompare()">مقارنة طبيبين</button></div>
+ <div id="doctorList" class="doctor-list"></div>
 </section>
 
-<section id="labsView" class="hidden"><div class="top"><button class="light" onclick="showView('homeView')">رجوع</button><b>المختبرات</b></div><div class="panel">نصمم إحصائيات المختبرات بعد تثبيت قالب الأطباء.</div></section>
-<section id="devicesView" class="hidden">
-<div class="top"><button class="light" onclick="showView('homeView')">رجوع</button><b>أجهزة قياس الضغط</b></div>
-<div class="device-note">بيانات سوق عراقية حقيقية جُمعت في 12 سبتمبر 2026. السعر هو سعر رُصد في متجر عراقي وقد يتغير. «تحقق سريري» لا يعني أن دورناه اختبر الجهاز؛ بل يعني وجود دليل تحقق منشور أو تصريح رسمي محدد للموديل/العائلة.</div>
-<div class="panel">
-<input id="deviceSearch" placeholder="ابحث باسم الجهاز أو الشركة">
-</div>
-<div id="deviceList" class="device-grid"></div>
+<section id="devicesView" class="page hidden">
+ <div class="page-hero"><div><div class="eyebrow">السوق العراقي</div><div class="title">أجهزة الضغط</div><p class="subtitle">أسعار مرصودة ومعلومات مختصرة تساعدك على المقارنة.</p></div><button class="back" onclick="showView('homeView')">←</button></div>
+ <div class="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="deviceSearch" placeholder="ابحث باسم الجهاز أو الشركة"></div>
+ <div id="brandChips" class="chips"></div>
+ <div class="disclaimer">السعر هو سعر رُصد داخل العراق وقد يتغير. عبارة «تحقق سريري» تخص الدليل المتاح للموديل أو عائلته وليست اختبارًا أجراه دورناه.</div>
+ <div id="deviceList" class="device-list"></div>
 </section>
+
+<section id="labsView" class="page hidden">
+ <div class="page-hero"><div><div class="eyebrow">قريبًا</div><div class="title">المختبرات</div><p class="subtitle">القسم قيد البناء بهوية دورناه الجديدة.</p></div><button class="back" onclick="showView('homeView')">←</button></div>
+ <div class="card empty"><div class="empty-ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 3h6M10 3v6l-5.5 9a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9V3"/><path d="M7.5 15h9"/></svg></div><h3>نجهز طريقة عرض المختبرات</h3><p>بدل صفحة فارغة، هذا القسم مهيأ لإضافة الأسعار، الفحوصات، أوقات العمل والمقارنات بنفس التصميم.</p></div>
+</section>
+</main>
 </div>
 
-<dialog id="doctorDialog"><div class="modal"><button class="light" onclick="doctorDialog.close()">إغلاق</button><div id="doctorBody"></div></div></dialog>
-<dialog id="compareDialog"><div class="modal"><button class="light" onclick="compareDialog.close()">إغلاق</button><h2>مقارنة طبيبين</h2><div class="filters"><select id="doctorOne"></select><select id="doctorTwo"></select></div><button class="dark full" style="margin-top:9px" onclick="drawComparison()">اعرض المقارنة</button><div id="compareBody"></div></div></dialog>
+<nav class="bottom-nav" aria-label="التنقل الرئيسي">
+ <button class="nav-item active" data-view="homeView" onclick="showView('homeView')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 10 8-6 8 6v10H4z"/><path d="M9 20v-6h6v6"/></svg><span>الرئيسية</span></button>
+ <button class="nav-item" data-view="doctorsView" onclick="showView('doctorsView')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.5-4.1 3-6.3 6.5-6.3s6 2.2 6.5 6.3"/></svg><span>الأطباء</span></button>
+ <button class="nav-item" data-view="devicesView" onclick="showView('devicesView')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="3" width="12" height="15" rx="3"/><path d="M9 7h6M10 11h4M12 18v3"/></svg><span>الأجهزة</span></button>
+ <button class="nav-item" data-view="labsView" onclick="showView('labsView')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6M10 3v6l-5.5 9a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9V3"/></svg><span>المختبرات</span></button>
+</nav>
+
+<dialog id="doctorDialog"><div class="modal"><div class="handle"></div><button class="modal-close" onclick="doctorDialog.close()">×</button><div id="doctorBody"></div></div></dialog>
+<dialog id="compareDialog"><div class="modal"><div class="handle"></div><button class="modal-close" onclick="compareDialog.close()">×</button><div class="modal-title">مقارنة طبيبين</div><div class="modal-sub">مقارنة ضمن بيانات النموذج التجريبي فقط.</div><div class="modal-section"><select id="doctorOne"></select><select id="doctorTwo"></select><button class="primary full" onclick="drawComparison()">اعرض المقارنة</button></div><div id="compareBody"></div></div></dialog>
+<dialog id="aboutDialog"><div class="modal"><div class="handle"></div><button class="modal-close" onclick="aboutDialog.close()">×</button><div class="modal-title">عن دورناه</div><div class="modal-section"><p class="subtitle">دورناه يجمع نتائج البحث الصحي المشتتة ويعرضها بصيغة أبسط. لا تعني الأرقام المعروضة تقييمًا طبيًا أو توصية علاجية.</p></div></div></dialog>
 
 <script>
-/* بيانات تجريبية داخل الصفحة حتى لا نعتمد أثناء التطوير على ملف خارجي أو نسخة مخزنة */
 const demoDoctors=[
 {id:1,name:"د. آدم الكرخي",gov:"النجف",spec:"أطفال",stats:{sample:100,mentions:78,recs:61,rank:1,total:10},sources:[42,19,11,6],rounds:[38,51,65,78],summary:"أعلى ظهور ضمن المثال التجريبي، مع نسبة ترشيحات مرتفعة.",findings:["تكرر الاسم في معظم جولات البحث التجريبية.","الحضور الأكبر جاء من فيسبوك.","الأرقام وهمية للعرض فقط."]},
 {id:2,name:"د. ليان الحسني",gov:"النجف",spec:"أطفال",stats:{sample:100,mentions:69,recs:48,rank:2,total:10},sources:[35,16,12,6],rounds:[31,44,57,69],summary:"ظهور مرتفع ومتوازن نسبيًا بين عدة مصادر.",findings:["ثاني أعلى ظهور في النموذج.","الترشيحات أقل من الطبيب الأول."]},
@@ -123,108 +164,47 @@ const demoDoctors=[
 {id:10,name:"د. تالا المشهدي",gov:"النجف",spec:"عيون",stats:{sample:55,mentions:13,recs:8,rank:10,total:10},sources:[6,3,3,1],rounds:[5,7,10,13],summary:"أقل ظهور داخل المثال حتى تكون الفروقات واضحة.",findings:["كل البيانات هنا وهمية للعرض فقط."]}
 ];
 
-const views=["homeView","doctorsView","labsView","devicesView"];
-function showView(id){views.forEach(v=>document.getElementById(v).classList.toggle("hidden",v!==id))}
-const searchBox=document.getElementById("searchBox"),govFilter=document.getElementById("govFilter"),specFilter=document.getElementById("specFilter");
-const doctorList=document.getElementById("doctorList"),overview=document.getElementById("overview");
-const doctorDialog=document.getElementById("doctorDialog"),doctorBody=document.getElementById("doctorBody");
-const compareDialog=document.getElementById("compareDialog"),doctorOne=document.getElementById("doctorOne"),doctorTwo=document.getElementById("doctorTwo"),compareBody=document.getElementById("compareBody");
+const pressureDevices=[
+{name:"OMRON M1 Basic",brand:"Omron",price:65000,store:"مكتب القمر - بغداد",validation:"تحقق سريري",evidence:"OMRON الرسمي يصف M1 Basic بأنه معتمد سريريًا.",memory:"آخر قراءة",cuff:"22–32/42 سم"},
+{name:"OMRON M3 Basic",brand:"Omron",price:135000,store:"مكتب القمر - بغداد",validation:"دليل للعائلة",evidence:"ظهر M3 ضمن قوائم أجهزة الذراع المتحقق منها؛ يجب مطابقة رقم HEM عند الشراء.",memory:"حسب النسخة",cuff:"حسب النسخة"},
+{name:"OMRON M7 Intelli IT AF",brand:"Omron",price:180000,store:"مكتب القمر - بغداد",validation:"تحقق منشور",evidence:"موديلات M7/M7 Intelli IT مدرجة ضمن أجهزة ذراع متحقق منها، مع ضرورة مطابقة رقم الموديل.",memory:"متعدد + تطبيق",cuff:"22–42 سم"},
+{name:"OMRON J761",brand:"Omron",price:200000,store:"مكتب القمر - بغداد",validation:"غير مثبت",evidence:"وجوده وسعره في السوق العراقي موثقان؛ لا نعرضه كجهاز متحقق سريريًا حتى تثبيت موديله بدليل مستقل.",memory:"100 قراءة",cuff:"22–42 سم"},
+{name:"Beurer BM27",brand:"Beurer",price:73000,store:"الريان - العراق",validation:"تحقق سريري",evidence:"BM27 مدرج ضمن قوائم أجهزة الذراع المتحقق منها.",memory:"4×30",cuff:"22–42 سم"},
+{name:"Beurer BM58",brand:"Beurer",price:113250,store:"سحر هيلث كير - العراق",validation:"غير مثبت",evidence:"السعر والتوفر موثقان في متجر عراقي؛ لا نضع علامة تحقق سريري دون مطابقة دراسة الموديل.",memory:"غير مثبت",cuff:"غير مثبت"},
+{name:"Beurer BM59",brand:"Beurer",price:80000,store:"سحر هيلث كير - بغداد",validation:"غير مثبت",evidence:"الموديل معروض فعليًا في صيدلية عراقية؛ تفاصيل المنتج لدى المتجر نفسها مذكورة بأنها قيد التحقق.",memory:"غير مثبت",cuff:"غير مثبت"},
+{name:"Rossmax Z1",brand:"Rossmax",price:50000,store:"دجلة للمستلزمات الطبية",validation:"مكافئ متحقق",evidence:"STRIDE BP يصنف Z1 مكافئًا لـ Rossmax CF175 الذي لديه دراسة تحقق للبالغين.",memory:"تخزين قراءات",cuff:"ذراع علوي"},
+{name:"Rossmax CF175",brand:"Rossmax",price:70000,store:"مركز الكندي - بغداد",validation:"تحقق سريري",evidence:"توجد دراسة تحقق للبالغين وفق ESH-IP 2010، وهو أساس إدراج الأجهزة المكافئة له.",memory:"حسب النسخة",cuff:"ذراع علوي"},
+{name:"Jumper HAA20",brand:"Jumper",price:60000,store:"مركز الكندي - بغداد",validation:"غير مثبت",evidence:"وجود الموديل وسعره في السوق العراقي موثقان؛ لم نعثر في البحث الحالي على تحقق سريري مستقل واضح للموديل.",memory:"غير مثبت",cuff:"ذراع علوي"}
+];
 
-[...new Set(demoDoctors.map(d=>d.gov))].forEach(v=>govFilter.innerHTML+=`<option>${v}</option>`);
-[...new Set(demoDoctors.map(d=>d.spec))].forEach(v=>specFilter.innerHTML+=`<option>${v}</option>`);
-
+const views=["homeView","doctorsView","devicesView","labsView"];
+function showView(id){views.forEach(v=>document.getElementById(v).classList.toggle("hidden",v!==id));document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.view===id));window.scrollTo({top:0,behavior:'smooth'});}
 function pct(a,b){return b?Math.round(a/b*100):0}
-function filtered(){
- const q=searchBox.value.trim().toLowerCase();
- return demoDoctors.filter(d=>(!q||(d.name+" "+d.spec+" "+d.gov).toLowerCase().includes(q))&&(!govFilter.value||d.gov===govFilter.value)&&(!specFilter.value||d.spec===specFilter.value));
-}
-function smallBar(label,val,max){
- const w=max?val/max*100:0;
- return `<div class="minirow"><span>${label}</span><div class="track"><div class="fill" style="width:${w}%"></div></div><b>${val}</b></div>`;
-}
-function renderDoctors(){
- const arr=filtered(),maxM=Math.max(...arr.map(d=>d.stats.mentions),1),maxR=Math.max(...arr.map(d=>d.stats.recs),1);
- overview.innerHTML=`<div class="over"><span>الأطباء الظاهرون</span><b>${arr.length}</b></div><div class="over"><span>إجمالي العينة</span><b>${arr.reduce((a,d)=>a+d.stats.sample,0)}</b></div><div class="over"><span>إجمالي الترشيحات</span><b>${arr.reduce((a,d)=>a+d.stats.recs,0)}</b></div>`;
- doctorList.innerHTML=arr.map(d=>`<div class="doctor"><div class="headrow"><div><div class="name">${d.name}</div><div class="sub">${d.spec} • ${d.gov} • الترتيب ${d.stats.rank} من ${d.stats.total}</div></div><div class="pill">وهمي</div></div>${smallBar("مرات الذكر",d.stats.mentions,maxM)}${smallBar("الترشيحات",d.stats.recs,maxR)}<button class="dark" style="margin-top:9px" onclick="openDoctor(${d.id})">شوف الإحصائيات</button></div>`).join("");
-}
-[searchBox,govFilter,specFilter].forEach(x=>x.addEventListener("input",renderDoctors));
 
-function sourceVisual(d){
- const names=["فيسبوك","إنستغرام","خرائط","أخرى"],sum=d.sources.reduce((a,b)=>a+b,0)||1;
- return `<div class="sourcebar">${d.sources.map(v=>`<span style="width:${v/sum*100}%"></span>`).join("")}</div><div class="legend">${d.sources.map((v,i)=>`<div>${names[i]}: <b>${v}</b></div>`).join("")}</div>`;
-}
-function trend(d){
- const max=Math.max(...d.rounds,1);
- return `<div class="trend">${d.rounds.map((v,i)=>`<div class="tcol"><div class="tval">${v}</div><div class="tbar" style="height:${Math.max(4,v/max*112)}px"></div><div class="tlab">جولة ${i+1}</div></div>`).join("")}</div>`;
-}
-function openDoctor(id){
- const d=demoDoctors.find(x=>x.id===id),s=d.stats,recPct=pct(s.recs,s.sample),mentionPct=pct(s.mentions,s.sample);
- doctorBody.innerHTML=`<div class="modal-title">${d.name}</div><div class="modal-sub">${d.spec} • ${d.gov} • بيانات وهمية</div>
- <div class="section"><h3>خلاصة دورناه</h3><div class="muted">${d.summary}</div></div>
- <div class="section"><h3>الأرقام الرئيسية</h3><div class="kpis">
- <div class="kpi"><span>حجم العينة</span><b>${s.sample}</b><small>نتيجة تم تحليلها</small></div>
- <div class="kpi"><span>مرات الذكر</span><b>${s.mentions}</b><small>${mentionPct}% من العينة</small></div>
- <div class="kpi"><span>ترشيحات مباشرة</span><b>${s.recs}</b><small>${recPct}% من العينة</small></div>
- <div class="kpi"><span>الترتيب</span><b>${s.rank}/${s.total}</b><small>داخل هذا المثال</small></div></div></div>
- <div class="section"><h3>نسبة الترشيح داخل العينة</h3><div class="ringrow"><div class="ring" style="--p:${recPct}"><b>${recPct}%</b></div><div class="muted">${s.recs} ترشيحات مباشرة من أصل ${s.sample}. هذا الرسم لا يمثل جودة الطبيب الطبية.</div></div></div>
- <div class="section"><h3>نتائج العينة</h3>
- <div class="bigbar"><div class="barhead"><span>مرات الذكر</span><b>${s.mentions} من ${s.sample}</b></div><div class="bigtrack"><div class="bigfill" style="width:${mentionPct}%"></div></div></div>
- <div class="bigbar"><div class="barhead"><span>الترشيحات المباشرة</span><b>${s.recs} من ${s.sample}</b></div><div class="bigtrack"><div class="bigfill" style="width:${recPct}%"></div></div></div></div>
- <div class="section"><h3>مصادر النتائج</h3>${sourceVisual(d)}</div>
- <div class="section"><h3>تغير مرات الذكر عبر الجولات</h3>${trend(d)}</div>
- <div class="section"><h3>ملاحظات البحث</h3>${d.findings.map(x=>`<div class="finding">• ${x}</div>`).join("")}</div>
- <button class="dark full" onclick="doctorDialog.close();openCompare(${d.id})">قارن مع طبيب آخر</button>`;
- doctorDialog.showModal();
-}
+const searchBox=document.getElementById('searchBox'),overview=document.getElementById('overview'),doctorList=document.getElementById('doctorList'),specialtyChips=document.getElementById('specialtyChips');
+let activeSpec='الكل';
+const specs=['الكل',...new Set(demoDoctors.map(d=>d.spec))];
+specialtyChips.innerHTML=specs.map(s=>`<button class="chip ${s==='الكل'?'active':''}" data-spec="${s}">${s}</button>`).join('');
+specialtyChips.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;activeSpec=b.dataset.spec;specialtyChips.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===b));renderDoctors()});
+function filteredDoctors(){const q=searchBox.value.trim().toLowerCase();return demoDoctors.filter(d=>(!q||(d.name+' '+d.spec+' '+d.gov).toLowerCase().includes(q))&&(activeSpec==='الكل'||d.spec===activeSpec))}
+function initials(name){return name.replace('د.','').trim().split(' ').slice(0,2).map(x=>x[0]).join('')}
+function renderDoctors(){const arr=filteredDoctors();overview.innerHTML=`<div class="over"><b>${arr.length}</b><span>اسم ظاهر</span></div><div class="over"><b>${arr.reduce((a,d)=>a+d.stats.sample,0)}</b><span>حجم العينة</span></div><div class="over"><b>${arr.reduce((a,d)=>a+d.stats.recs,0)}</b><span>ترشيح مباشر</span></div>`;doctorList.innerHTML=arr.map(d=>`<article class="card doctor-card" onclick="openDoctor(${d.id})"><div class="avatar"><span>${initials(d.name)}</span></div><div class="doctor-main"><b>${d.name}</b><small>${d.spec} • ${d.gov}</small><div class="doctor-meta"><span class="meta"><strong>${d.stats.mentions}</strong> مرة ذكر</span><span class="meta"><strong>${d.stats.recs}</strong> ترشيح</span></div></div><div class="rank">#${d.stats.rank}</div></article>`).join('')||'<div class="card empty"><p>ما لقينا نتيجة مطابقة.</p></div>'}
+searchBox.addEventListener('input',renderDoctors);
 
-function fillCompare(){
- const o=demoDoctors.map(d=>`<option value="${d.id}">${d.name}</option>`).join("");
- doctorOne.innerHTML=o;doctorTwo.innerHTML=o;doctorTwo.selectedIndex=1;
-}
-function openCompare(first=null){
- fillCompare();compareBody.innerHTML="";
- if(first!==null){doctorOne.value=String(first);const other=demoDoctors.find(d=>d.id!==first);if(other)doctorTwo.value=String(other.id)}
- compareDialog.showModal();
-}
-function compareMetric(label,a,b,key){
- const av=a.stats[key],bv=b.stats[key],m=Math.max(av,bv,1);
- return `<div class="cmetric"><div class="ctitle">${label}</div><div class="crow"><span>${a.name}</span><div class="track"><div class="fill" style="width:${av/m*100}%"></div></div><b>${av}</b></div><div class="crow"><span>${b.name}</span><div class="track"><div class="fill" style="width:${bv/m*100}%"></div></div><b>${bv}</b></div></div>`;
-}
-function drawComparison(){
- const a=demoDoctors.find(d=>String(d.id)===doctorOne.value),b=demoDoctors.find(d=>String(d.id)===doctorTwo.value);
- if(!a||!b||a.id===b.id){compareBody.innerHTML='<div class="panel">اختَر طبيبين مختلفين.</div>';return}
- compareBody.innerHTML=`<div class="compareboxes"><div class="cbox">${a.name}</div><div class="cbox">${b.name}</div></div>${compareMetric("مرات الذكر",a,b,"mentions")}${compareMetric("الترشيحات المباشرة",a,b,"recs")}${compareMetric("حجم العينة",a,b,"sample")}<div class="section"><h3>الترتيب داخل البحث</h3><div class="compareboxes"><div class="cbox">${a.stats.rank} من ${a.stats.total}</div><div class="cbox">${b.stats.rank} من ${b.stats.total}</div></div></div>`;
-}
+const deviceSearch=document.getElementById('deviceSearch'),deviceList=document.getElementById('deviceList'),brandChips=document.getElementById('brandChips');let activeBrand='الكل';
+const brands=['الكل',...new Set(pressureDevices.map(d=>d.brand))];brandChips.innerHTML=brands.map(b=>`<button class="chip ${b==='الكل'?'active':''}" data-brand="${b}">${b}</button>`).join('');brandChips.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;activeBrand=b.dataset.brand;brandChips.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===b));renderDevices()});
+function renderDevices(){const q=deviceSearch.value.trim().toLowerCase();const arr=pressureDevices.filter(d=>(!q||(d.name+' '+d.brand+' '+d.store).toLowerCase().includes(q))&&(activeBrand==='الكل'||d.brand===activeBrand));deviceList.innerHTML=arr.map(d=>{const good=d.validation.includes('تحقق')||d.validation.includes('مكافئ');return `<article class="card device-card"><div class="device-top"><div class="device-visual"><div class="bp-unit"><div class="bp-brand">${d.brand.toUpperCase()}</div><div class="bp-screen"><span>SYS mmHg</span><b>120</b></div><div class="bp-button"></div></div></div><div class="device-info"><div class="device-title-row"><div><h3>${d.name}</h3><div class="device-brand">${d.brand} • ${d.store}</div></div><span class="badge ${good?'good':''}">${d.validation}</span></div><div class="price">${d.price.toLocaleString('ar-IQ')} <small>د.ع</small></div></div></div><div class="device-bottom"><div class="spec-grid"><div class="spec"><span>الذاكرة</span><b>${d.memory}</b></div><div class="spec"><span>الكفة</span><b>${d.cuff}</b></div><div class="spec"><span>السوق</span><b>العراق</b></div></div><div class="evidence">${d.evidence}</div></div></article>`}).join('')||'<div class="card empty"><p>ما لقينا جهاز مطابق.</p></div>'}
+deviceSearch.addEventListener('input',renderDevices);
 
-const pressureDevices=[{"name":"OMRON M1 Basic","brand":"Omron","price":65000,"store":"مكتب القمر - بغداد","validation":"تحقق سريري","evidence":"OMRON الرسمي يصف M1 Basic بأنه معتمد سريريًا.","memory":"آخر قراءة","cuff":"22–32/42 سم"},{"name":"OMRON M3 Basic","brand":"Omron","price":135000,"store":"مكتب القمر - بغداد","validation":"دليل تحقق للعائلة","evidence":"ظهر M3 ضمن قوائم أجهزة الذراع المتحقق منها؛ يجب مطابقة رقم HEM عند الشراء.","memory":"حسب النسخة","cuff":"حسب النسخة"},{"name":"OMRON M7 Intelli IT AF","brand":"Omron","price":180000,"store":"مكتب القمر - بغداد","validation":"دليل تحقق منشور","evidence":"موديلات M7/M7 Intelli IT مدرجة ضمن أجهزة ذراع متحقق منها، مع ضرورة مطابقة رقم الموديل.","memory":"متعدد + تطبيق","cuff":"22–42 سم"},{"name":"OMRON J761","brand":"Omron","price":200000,"store":"مكتب القمر - بغداد","validation":"لم نثبت تحققًا مستقلاً","evidence":"وجوده وسعره في السوق العراقي موثقان؛ لا نعرضه كجهاز متحقق سريريًا حتى تثبيت موديله بدليل مستقل.","memory":"100 قراءة","cuff":"22–42 سم"},{"name":"Beurer BM27","brand":"Beurer","price":73000,"store":"الريان - العراق","validation":"تحقق سريري","evidence":"BM27 مدرج ضمن قوائم أجهزة الذراع المتحقق منها.","memory":"4×30","cuff":"22–42 سم"},{"name":"Beurer BM58","brand":"Beurer","price":113250,"store":"سحر هيلث كير - العراق","validation":"لم نثبت للموديل هنا","evidence":"السعر والتوفر موثقان في متجر عراقي؛ لا نضع علامة تحقق سريري دون مطابقة دراسة الموديل.","memory":"غير مثبت هنا","cuff":"غير مثبت هنا"},{"name":"Beurer BM59","brand":"Beurer","price":80000,"store":"سحر هيلث كير - بغداد","validation":"لم نثبت للموديل هنا","evidence":"الموديل معروض فعليًا في صيدلية عراقية؛ تفاصيل المنتج لدى المتجر نفسها مذكورة بأنها قيد التحقق.","memory":"غير مثبت هنا","cuff":"غير مثبت هنا"},{"name":"Rossmax Z1","brand":"Rossmax","price":50000,"store":"دجلة للمستلزمات الطبية","validation":"مكافئ لجهاز متحقق","evidence":"STRIDE BP يصنف Z1 مكافئًا لـ Rossmax CF175 الذي لديه دراسة تحقق للبالغين.","memory":"تخزين قراءات","cuff":"ذراع علوي"},{"name":"Rossmax CF175","brand":"Rossmax","price":70000,"store":"مركز الكندي - بغداد","validation":"تحقق سريري","evidence":"توجد دراسة تحقق للبالغين وفق ESH-IP 2010، وهو أساس إدراج الأجهزة المكافئة له.","memory":"حسب النسخة","cuff":"ذراع علوي"},{"name":"Jumper HAA20","brand":"Jumper","price":60000,"store":"مركز الكندي - بغداد","validation":"لم نجد تحققًا مستقلاً","evidence":"وجود الموديل وسعره في السوق العراقي موثقان؛ لم نعثر في البحث الحالي على تحقق سريري مستقل واضح للموديل.","memory":"غير مثبت هنا","cuff":"ذراع علوي"}];
-const deviceSearch=document.getElementById("deviceSearch"),deviceList=document.getElementById("deviceList");
-function renderDevices(){
- if(!deviceList)return;
- const q=(deviceSearch?.value||"").trim().toLowerCase();
- const arr=pressureDevices.filter(d=>(d.name+" "+d.brand+" "+d.store+" "+d.validation).toLowerCase().includes(q));
- deviceList.innerHTML=arr.map(d=>`<div class="device">
-   <div class="headrow"><div><div class="device-title">${d.name}</div><div class="device-brand">${d.brand}</div></div>
-   <span class="${d.validation.includes("تحقق")||d.validation.includes("مكافئ")?"badge-ok":"badge-limited"}">${d.validation}</span></div>
-   <div class="device-stats">
-    <div class="device-stat"><span>سعر رُصد بالعراق</span><b>${d.price.toLocaleString("ar-IQ")} د.ع</b></div>
-    <div class="device-stat"><span>الذاكرة</span><b>${d.memory}</b></div>
-    <div class="device-stat"><span>الكفة</span><b>${d.cuff}</b></div>
-   </div>
-   <div class="device-source"><b>مكان الرصد:</b> ${d.store}<br><b>حالة الدليل:</b> ${d.evidence}</div>
- </div>`).join("");
-}
-if(deviceSearch)deviceSearch.addEventListener("input",renderDevices);
-renderDevices();
+const doctorDialog=document.getElementById('doctorDialog'),doctorBody=document.getElementById('doctorBody'),compareDialog=document.getElementById('compareDialog'),doctorOne=document.getElementById('doctorOne'),doctorTwo=document.getElementById('doctorTwo'),compareBody=document.getElementById('compareBody');
+function openDoctor(id){const d=demoDoctors.find(x=>x.id===id),s=d.stats,mp=pct(s.mentions,s.sample),rp=pct(s.recs,s.sample),names=['فيسبوك','إنستغرام','خرائط','أخرى'];doctorBody.innerHTML=`<div class="modal-title">${d.name}</div><div class="modal-sub">${d.spec} • ${d.gov} • بيانات تجريبية</div><div class="modal-section"><h3>خلاصة دورناه</h3><p class="subtitle">${d.summary}</p></div><div class="modal-section"><h3>الأرقام الرئيسية</h3><div class="kpis"><div class="kpi"><span>حجم العينة</span><b>${s.sample}</b><small>نتيجة</small></div><div class="kpi"><span>مرات الذكر</span><b>${s.mentions}</b><small>${mp}% من العينة</small></div><div class="kpi"><span>الترشيحات</span><b>${s.recs}</b><small>${rp}% من العينة</small></div><div class="kpi"><span>الترتيب</span><b>${s.rank}/${s.total}</b><small>داخل النموذج</small></div></div></div><div class="modal-section"><h3>نتائج العينة</h3><div class="barline"><div class="barhead"><span>مرات الذكر</span><b>${mp}%</b></div><div class="track"><div class="fill" style="width:${mp}%"></div></div></div><div class="barline"><div class="barhead"><span>الترشيحات المباشرة</span><b>${rp}%</b></div><div class="track"><div class="fill" style="width:${rp}%"></div></div></div></div><div class="modal-section"><h3>مصادر النتائج</h3><div class="sources">${d.sources.map((v,i)=>`<div class="source">${names[i]} <b>${v}</b></div>`).join('')}</div></div><div class="modal-section"><h3>ملاحظات البحث</h3>${d.findings.map(x=>`<div class="finding">• ${x}</div>`).join('')}</div><button class="primary full" onclick="doctorDialog.close();openCompare(${d.id})">قارن مع طبيب آخر</button>`;doctorDialog.showModal()}
+function fillCompare(){const o=demoDoctors.map(d=>`<option value="${d.id}">${d.name}</option>`).join('');doctorOne.innerHTML=o;doctorTwo.innerHTML=o;doctorTwo.selectedIndex=1}
+function openCompare(first=null){fillCompare();compareBody.innerHTML='';if(first!==null){doctorOne.value=String(first);const other=demoDoctors.find(d=>d.id!==first);if(other)doctorTwo.value=String(other.id)}compareDialog.showModal()}
+function metric(label,a,b,key){const av=a.stats[key],bv=b.stats[key],m=Math.max(av,bv,1);return `<div class="compare-metric"><div>${label}</div><div class="compare-row"><span>${a.name}</span><div class="track"><div class="fill" style="width:${av/m*100}%"></div></div><b>${av}</b></div><div class="compare-row"><span>${b.name}</span><div class="track"><div class="fill" style="width:${bv/m*100}%"></div></div><b>${bv}</b></div></div>`}
+function drawComparison(){const a=demoDoctors.find(d=>String(d.id)===doctorOne.value),b=demoDoctors.find(d=>String(d.id)===doctorTwo.value);if(!a||!b||a.id===b.id){compareBody.innerHTML='<div class="modal-section">اختَر طبيبين مختلفين.</div>';return}compareBody.innerHTML=`<div class="compare-grid"><div class="compare-name">${a.name}</div><div class="compare-name">${b.name}</div></div><div class="modal-section">${metric('مرات الذكر',a,b,'mentions')}${metric('الترشيحات المباشرة',a,b,'recs')}${metric('حجم العينة',a,b,'sample')}</div>`}
 
-renderDoctors();
-
-/* أثناء التطوير: امسح التخزين القديم حتى نشوف كل تحديث فورًا */
-if("serviceWorker" in navigator){
- navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister()));
-}
-if("caches" in window){
- caches.keys().then(keys=>keys.forEach(k=>caches.delete(k)));
-}
+renderDoctors();renderDevices();
+if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister()))}
+if('caches' in window){caches.keys().then(keys=>keys.forEach(k=>caches.delete(k)))}
 </script>
-</body>
-</html>
+</body></html>
