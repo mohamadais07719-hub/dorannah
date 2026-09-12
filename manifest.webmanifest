@@ -3,8 +3,8 @@
   "short_name": "دورناه",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f7f7f8",
-  "theme_color": "#111827",
+  "background_color": "#050505",
+  "theme_color": "#050505",
   "lang": "ar",
   "dir": "rtl",
   "icons": [
